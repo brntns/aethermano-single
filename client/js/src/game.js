@@ -37,6 +37,7 @@ function Game() {
   this.lights = null;
   this.locationGroup = null;
   this.lightradius = 175;
+   this.bounds = null;
 }
 
 var gameBase = {
@@ -57,28 +58,31 @@ var gameBase = {
     this.map = new Map(this.game,this.player, this);
     this.map.create();
     this.items = new Items(this.game,this);
+    this.bounds = Phaser.Rectangle.clone(this.game.world.bounds);
+    this.zoomTo(5,0.5);
+
   },
   update: function update() {
     // Menu
       //  var marker = {};#
-      if(this.map.collisionLayer){
-        this.map.marker.x = this.map.collisionLayer.getTileX(this.game.input.activePointer.worldX) * 16;
-        this.map.marker.y = this.map.collisionLayer.getTileY(this.game.input.activePointer.worldY) * 16;
+      // if(this.map.collisionLayer){
+        // this.map.marker.x = this.map.collisionLayer.getTileX(this.game.input.activePointer.worldX) * 16;
+        // this.map.marker.y = this.map.collisionLayer.getTileY(this.game.input.activePointer.worldY) * 16;
 
-        if (this.game.input.mousePointer.isDown){
-          // if (this.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT))
-          // {
-              this.map.currentTile = this.map.getTile(this.map.tileset.getTileX(this.map.marker.x), this.map.tileset.getTileY(this.map.marker.y));
-          // }
-          // else
-          // {
-          //     if (this.map.getTile( this.map.tileset.getTileX(marker.x),  this.map.tileset.getTileY(marker.y)) != currentTile)
-          //     {
-          //         map.putTile(currentTile, layer.getTileX(marker.x), layer.getTileY(marker.y))
-          //     }
-          // }
-        }
-      }
+        // if (this.game.input.mousePointer.isDown){
+        //   // if (this.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT))
+        //   // {
+        //       this.map.currentTile = this.map.getTile(this.map.tileset.getTileX(this.map.marker.x), this.map.tileset.getTileY(this.map.marker.y));
+        //   // }
+        //   // else
+        //   // {
+        //   //     if (this.map.getTile( this.map.tileset.getTileX(marker.x),  this.map.tileset.getTileY(marker.y)) != currentTile)
+        //   //     {
+        //   //         map.putTile(currentTile, layer.getTileX(marker.x), layer.getTileY(marker.y))
+        //   //     }
+        //   // }
+        // }
+      // }
       // if(this.menuOpen){
     //   // this.client.menu.update(this.player.cursors);
     // } else {
@@ -569,7 +573,29 @@ var gameBase = {
     }, this);
     // This just tells the engine it should update the texture cache
     this.shadowTexture.dirty = true;
-  }
+  },
+   zoomTo:function zoomTo(scale, duration) {
+    console.log(  this.bounds);
+    var bounds       = this.bounds;
+    var cameraBounds = this.game.camera.bounds;
+    cameraBounds.x      = bounds.width  * (1 - scale) / 2;
+    cameraBounds.y      = bounds.height * (1 - scale) / 2;
+    cameraBounds.width  = bounds.width  * scale;
+    cameraBounds.height = bounds.height * scale;
+    this.bounds.scale(scale);
+    if (!duration) {
+    } else {
+      this.game.add.tween(cameraBounds).to({
+          x      : bounds.width  * (1 - scale) / 2,
+          y      : bounds.height * (1 - scale) / 2,
+          width  : bounds.width  * scale,
+          height : bounds.height * scale
+      }, duration).start();
+      return this.game.add.tween(this.scale).to({
+          x: scale, y: scale
+      }, duration).start();
+    }
+   }
 };
 
 var game = {};

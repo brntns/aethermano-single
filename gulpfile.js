@@ -21,6 +21,7 @@ var gulp = require('gulp')
   , clean = require('gulp-clean')
   , paths;
 
+
 paths = {
   assets: 'client/assets/**/*',
   css:    'client/css/*.css',
