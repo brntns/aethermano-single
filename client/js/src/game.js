@@ -61,8 +61,7 @@ var gameBase = {
     this.map = new Map(this.game,this.player, this);
     this.map.create(this.world.maps);
     this.items = new Items(this.game,this);
-    this.bounds = Phaser.Rectangle.clone(this.game.world.bounds);
-    this.zoomTo(5,0.5);
+    this.zoomTo(4,200);
 
   },
   update: function update() {
@@ -578,27 +577,18 @@ var gameBase = {
     this.shadowTexture.dirty = true;
   },
    zoomTo:function zoomTo(scale, duration) {
-    console.log(  this.bounds);
-    var bounds       = this.bounds;
-    var cameraBounds = this.game.camera.bounds;
-    cameraBounds.x      = bounds.width  * (1 - scale) / 2;
-    cameraBounds.y      = bounds.height * (1 - scale) / 2;
-    cameraBounds.width  = bounds.width  * scale;
-    cameraBounds.height = bounds.height * scale;
-    this.bounds.scale(scale);
-    if (!duration) {
-    } else {
-      this.game.add.tween(cameraBounds).to({
-          x      : bounds.width  * (1 - scale) / 2,
-          y      : bounds.height * (1 - scale) / 2,
-          width  : bounds.width  * scale,
-          height : bounds.height * scale
-      }, duration).start();
-      return this.game.add.tween(this.scale).to({
-          x: scale, y: scale
-      }, duration).start();
-    }
+    var steps = scale/duration;
+    var cnt = 1;
+
+     for (var i = 0; i < duration/2; i++) {
+       this.player.sprite.scale.set(cnt);
+      this.map.collisionLayer.setScale(cnt);
+      this.map.collisionLayer.resizeWorld();
+        cnt = cnt + steps;
+        console.log(cnt);
+     };
    }
+
 };
 
 var game = {};

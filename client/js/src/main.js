@@ -16,8 +16,9 @@ window.onload = function () {
 	var game;
 	var ns = window['phaser'];
 
-	var gameWidth = 600;
-	var gameHeight = 340;
+  var gameWidth = 1280;
+  var gameHeight = 720;
+
 	game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, 'phaser-game',null,false,false);
 
 	game.state.add('boot', ns.Boot);
