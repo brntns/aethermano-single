@@ -39,6 +39,7 @@ function Game() {
 	this.lightradius = 175;
 	this.bounds = null;
 	this.scale = 1;
+  this.zooming = false;
 }
 
 var gameBase = {
@@ -48,7 +49,7 @@ var gameBase = {
 		this.game.time.advancedTiming = true;
 		// enable physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		this.game.physics.arcade.OVERLAP_BIAS = 1;
+		this.game.physics.arcade.OVERLAP_BIAS = 5;
 		this.monsterGroup = this.game.add.group();
 		this.boundsGroup = this.game.add.group();
 		this.menuGroup = this.game.add.group();
@@ -62,7 +63,7 @@ var gameBase = {
 		this.map = new Map(this.game,this.player, this);
 		this.map.create(this.world.maps);
 		this.items = new Items(this.game,this);
-		this.zoomTo(5,200);
+		this.zoomTo(1,200);
 
 	},
 	update: function update() {
@@ -102,24 +103,16 @@ var gameBase = {
 		//   this.incomingChat = [];
 		// }
 		// Deathchat
-		// if (this.player.sendchat.isDown && !this.activeChat && this.player.dieing) {
-		//   this.activeChat = true;
-		//   if (this.player.text !== null) {
-		//     this.player.text.visible = true;
-		//   }
-		//   if (this.chatGroup !== null) {
-		//     this.chatGroup.visible = true;
-		//   }
-		//   var txt =  this.player.chat.join('');
-		//   var chat = {
-		//     id: this.player.id,
-		//     msg: txt
-		//   };
-		//
-		//   this.game.time.events.add(1000, function(){this.activeChat = false;}, this);
-		//   this.player.chat = [];
-		//   this.player.text.destroy();
-		// }
+		if (this.player.letterA.isDown && !this.zooming) {
+		  this.zooming = true;
+		  this.game.time.events.add(1000, function(){this.zooming = false;}, this);
+      this.zoomTo(5,200);
+    }
+    if (this.player.letterO.isDown && !this.zooming) {
+      this.zooming = true;
+      this.game.time.events.add(1000, function(){this.zooming = false;}, this);
+      this.zoomTo(1,200);
+    }
 		// Vul animation
 		// if (this.player.vuln && !this.player.dieing) {
 		//   this.player.sprite.tint = 0xFAA1A1;
@@ -578,11 +571,24 @@ var gameBase = {
 		this.shadowTexture.dirty = true;
 	},
 	zoomTo: function zoomTo(scale, duration) {
+    console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
 		this.player.sprite.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
-		this.map.collisionLayer.resizeWorld();
 		this.player.updateScale(scale);
-		// var count = this.player.sprite.scale;
+    this.map.collisionLayer.resizeWorld();
+    if(scale < this.scale){
+      console.log('zoom out');
+      this.player.sprite.x = this.player.sprite.x / this.scale;
+      this.player.sprite.y = this.player.sprite.y / this.scale;
+      this.scale = scale;
+    } else {
+       console.log('zoom in');
+      this.player.sprite.x = this.player.sprite.x * scale;
+      this.player.sprite.y = this.player.sprite.y * scale;
+      this.scale = scale;
+    }
+    console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
+    		// var count = this.player.sprite.scale;
 		//  var steps = (scale - count)/duration;
 		//  for (var i = 0; i < duration; i++) {
 		// 	count = count + steps;
