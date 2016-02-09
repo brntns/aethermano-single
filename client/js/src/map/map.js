@@ -28,7 +28,7 @@ var mapBase = {
 
 	create: function (data) {
     this.maps = data[0].map;
-    console.log(this.maps[0]);
+    //console.log(this.maps[0]);
     this.tilemap = this.game.load.tilemap(this.maps[0].id, null, this.maps[0], Phaser.Tilemap.TILED_JSON );
     this.tileset = this.game.add.tilemap(this.maps[0].id);
 		this.tileset.addTilesetImage('tiles-1');

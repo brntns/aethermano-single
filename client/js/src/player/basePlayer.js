@@ -1,7 +1,7 @@
 var basePlayer = {
   create: function () {
     // adding player sprite
-    this.sprite = this.game.add.sprite(32, this.game.world.height - 150, 'explorer');
+    this.sprite = this.game.add.sprite(1500, this.game.world.height - 150, 'explorer');
     //this.sprite.scale.setTo(2);
     this.hitbox1 = this.game.add.sprite(32, this.game.world.height - 150, 'monk_hitbox');
     this.hitbox2 = this.game.add.sprite(32, this.game.world.height - 150, 'monk_hitbox');

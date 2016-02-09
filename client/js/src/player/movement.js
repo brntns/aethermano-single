@@ -11,8 +11,8 @@ var Jester = require('./classes/jester');
 
 var movement = {
   update: function update() {
-    
-    this.isActive = true;
+    //All the Balance
+    //General Map Data
     // if(this.dieing){
     //   this.chatting();
     // }

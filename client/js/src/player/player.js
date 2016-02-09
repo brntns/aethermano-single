@@ -83,48 +83,51 @@ function Player(game,map) {
     this.specialOnCd = false;
     this.specialCd = 1000;
 
-    this.jumpWindowTimer = null;
-    this.jumpSpeedBonus = 0;
-    this.moveMode = 0;
-    //All the Balance
-    //General Map Data
+    var scale = 1;
+    if (this.sprite !== null && this.sprite !== undefined) {scale = this.sprite.scale.x}
+    //  console.log(scale);
     this.mapSizex = 640;
     this.tileSizex = 16;
-    this.gravity = 750;
+    this.gravity = 750 * scale;
     //Teleport
     this.teleportCd = 2000;
     this.teleporting = 0;
-    this.teleportRangeX = 320;
-    this.teleportRangeY = 160;
+    this.teleportRangeX = 320 * scale;
+    this.teleportRangeY = 160 * scale;
     //Deceleration
-    this.groundFriction = 950;
-    this.airFriction = 0;
-    this.groundCutoff = 200;
-    this.airCutoff = 5;
+    this.groundFriction = 950 * scale;
+    this.airFriction = 0 * scale;
+    this.groundCutoff = 200 * scale;
+    this.airCutoff = 5 * scale;
     //Running
-    this.braking = 1950;
-    this.airbraking = 950;
-    this.airbrakeHigh = 2;
-    this.runnig = 250;
-    this.boost = 150;
+    this.braking = 1950 * scale;
+    this.airbraking = 950 * scale;
+    this.airbrakeHigh = 2 * scale;
+    this.runnig = 250 * scale;
+    this.boost = 150 * scale;
     this.boostWindow = 100;
-    this.floating = 500;
+    this.floating = 500 * scale;
     this.floatWindow = 250;
     //Jumping
-    this.jumpSpeedBase = 250;
-    this.jumpSpeedCoeff = 7;
+    this.jumpSpeedBase = 250 * scale;
+    this.jumpSpeedCoeff = 7 * scale;
     this.jumpAirtime = 500;
     this.wallJumpTime = 150;
-    this.wallJumpBoost = 350;
-    this.wallJumpBonus = 50;
+    this.wallJumpBoost = 350 * scale;
+    this.wallJumpBonus = 50 * scale;
     // Tron
-    this.tronspeed = 700;
+    this.tronspeed = 700 * scale;
     this.tronleft = false;
     this.tronright = false;
     this.tronup = false;
     this.trondown = false;
     this.tronCd = 5000;
     this.tronCool = true;
+    this.isActive = true;
+
+    this.jumpWindowTimer = null;
+    this.jumpSpeedBonus = 0;
+    this.moveMode = 0;
 
     //
     this.inRoom = false;
