@@ -27,23 +27,22 @@ function Map(game, player, myGame) {
 var mapBase = {
 
 	create: function (data) {
-	//	console.log(data);
-    // this.maps = data;
-		this.tileset = this.game.add.tilemap('map');
-		this.tileset.addTilesetImage('huts');
+    this.maps = data[0].map;
+    console.log(this.maps[0]);
+    this.tilemap = this.game.load.tilemap(this.maps[0].id, null, this.maps[0], Phaser.Tilemap.TILED_JSON );
+    this.tileset = this.game.add.tilemap(this.maps[0].id);
+		this.tileset.addTilesetImage('tiles-1');
 		this.tileset.setCollisionByExclusion([
-			13
+			0
 		]);
 		// this.currentTile = this.tileset.getTile(2, 3);
 	  this.collisionLayer =	this.tileset.createLayer('Tile Layer 1');
 		this.collisionLayer.renderSettings.enableScrollDelta = true;
 		this.collisionLayer.resizeWorld();
 		// this.tileset.setCollision([11]);
-
-
-		this.marker = this.game.add.graphics();
-		this.marker.lineStyle(2, 0x000000, 1);
-		this.marker.drawRect(0, 0,16,16);
+		// this.marker = this.game.add.graphics();
+		// this.marker.lineStyle(2, 0x000000, 1);
+		// this.marker.drawRect(0, 0,16,16);
     // this.setCurrentLevel(this.maps[0],'map',this.maps[0].type);
 		//add groups
 	},

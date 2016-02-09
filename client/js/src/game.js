@@ -7,7 +7,7 @@ var climbchecks =  require('./handlers/climb');
 var teleport =  require('./handlers/teleport');
 var attackhandler =  require('./handlers/attackhandler');
 var playerchecks =  require('./handlers/playerchecks');
-
+var gameWorld = require('./world/world.js')
 
 function Game() {
 
@@ -55,8 +55,11 @@ var gameBase = {
     // creating game components
     this.player = new Player(this.game, this.map);
     this.player.create();
+    this.world = new gameWorld.World();
+    this.world.create();
+    console.log(this.world);
     this.map = new Map(this.game,this.player, this);
-    this.map.create();
+    this.map.create(this.world.maps);
     this.items = new Items(this.game,this);
     this.bounds = Phaser.Rectangle.clone(this.game.world.bounds);
     this.zoomTo(5,0.5);

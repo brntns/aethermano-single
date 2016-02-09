@@ -9,9 +9,8 @@ Preloader.prototype = {
 
   preload: function () {
     // misc
-    this.game.load.tilemap('map','assets/map.json',null, Phaser.Tilemap.TILED_JSON );
-
-    this.game.load.image("overlay", "assets/overlay.png");
+    this.game.load.image('tiles-1','assets/tiles-1.png');
+    this.game.load.image('overlay', 'assets/overlay.png');
     this.game.load.image('huts', 'assets/huts.png');
     this.game.load.image('item', 'assets/item.png');
     this.game.load.image('ball', 'assets/ball.png');
