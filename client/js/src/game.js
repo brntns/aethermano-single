@@ -62,7 +62,7 @@ var gameBase = {
 		this.map = new Map(this.game,this.player, this);
 		this.map.create(this.world.maps);
 		this.items = new Items(this.game,this);
-		this.zoomTo(2,200);
+		this.zoomTo(5,200);
 
 	},
 	update: function update() {
@@ -580,7 +580,8 @@ var gameBase = {
 	zoomTo: function zoomTo(scale, duration) {
 		this.player.sprite.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
-		this.map.collisionLayer.resizeWorld();		
+		this.map.collisionLayer.resizeWorld();
+		this.player.updateScale(scale);
 		// var count = this.player.sprite.scale;
 		//  var steps = (scale - count)/duration;
 		//  for (var i = 0; i < duration; i++) {

@@ -440,6 +440,48 @@ var movement = {
         this.status = 10;
       }
     }
+  },
+  updateScale: function updateScale(scale) {
+    //  if (this.sprite !== null && this.sprite !== undefined) {scale = this.sprite.scale.x}
+    //  console.log(scale);
+    this.mapSizex = 640;
+    this.tileSizex = 16;
+    this.gravity = 750 * scale;
+    //Teleport
+    this.teleportCd = 2000;
+    this.teleporting = 0;
+    this.teleportRangeX = 320 * scale;
+    this.teleportRangeY = 160 * scale;
+    //Deceleration
+    this.groundFriction = 950 * scale;
+    this.airFriction = 0 * scale;
+    this.groundCutoff = 200 * scale;
+    this.airCutoff = 5 * scale;
+    //Running
+    this.braking = 1950 * scale;
+    this.airbraking = 950 * scale;
+    this.airbrakeHigh = 2 * scale;
+    this.runnig = 250 * scale;
+    this.boost = 150 * scale;
+    this.boostWindow = 100;
+    this.floating = 500 * scale;
+    this.floatWindow = 250;
+    //Jumping
+    this.jumpSpeedBase = 250 * scale;
+    this.jumpSpeedCoeff = 7 * scale;
+    this.jumpAirtime = 500;
+    this.wallJumpTime = 150;
+    this.wallJumpBoost = 350 * scale;
+    this.wallJumpBonus = 50 * scale;
+    // Tron
+    this.tronspeed = 700 * scale;
+    this.tronleft = false;
+    this.tronright = false;
+    this.tronup = false;
+    this.trondown = false;
+    this.tronCd = 5000;
+    this.tronCool = true;
+    this.isActive = true;
   }
 };
 
