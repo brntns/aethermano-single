@@ -387,7 +387,7 @@ exports.Mines.prototype = {
     this.randomTerrain(500, x, y, width, height, mapWidth, mapHeight, 14)
     var N = this.countRooms(this.mapFeatures);
     this.spawnMonsters(this.rooms);
-    console.log(N);
+    // console.log(N);
   },
   generate: function generate(mapWidth, mapHeight, type) {
     this.mapSize = mapWidth * mapHeight;

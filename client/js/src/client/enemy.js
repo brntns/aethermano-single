@@ -6,7 +6,7 @@ function Enemy(id, game) {
 };
 var enemyBase = {
   create: function create (data) {
-    //console.log(data);
+    console.log(data);
     this.sprite = this.game.monsterGroup.getFirstDead();
     this.sprite = this.game.add.sprite(0,0, 'beholder');
 
