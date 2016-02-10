@@ -47,9 +47,11 @@ var gameBase = {
 		this.game.stage.backgroundColor = '#333333';
 		// enable frames manipulation & tracking
 		this.game.time.advancedTiming = true;
+        this.bounds = Phaser.Rectangle.clone(this.game.world.bounds);
+
 		// enable physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		this.game.physics.arcade.OVERLAP_BIAS = 5;
+		this.game.physics.arcade.OVERLAP_BIAS = 100;
 		this.monsterGroup = this.game.add.group();
 		this.boundsGroup = this.game.add.group();
 		this.menuGroup = this.game.add.group();
@@ -106,7 +108,7 @@ var gameBase = {
 		if (this.player.letterA.isDown && !this.zooming) {
 		  this.zooming = true;
 		  this.game.time.events.add(1000, function(){this.zooming = false;}, this);
-      this.zoomTo(5,200);
+      this.zoomTo(3,200);
     }
     if (this.player.letterO.isDown && !this.zooming) {
       this.zooming = true;
@@ -575,12 +577,11 @@ var gameBase = {
 		this.player.sprite.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
-    this.map.collisionLayer.resizeWorld();
+     this.map.collisionLayer.resizeWorld();
     if(scale < this.scale){
       console.log('zoom out');
       this.player.sprite.x = this.player.sprite.x / this.scale;
       this.player.sprite.y = this.player.sprite.y / this.scale;
-      this.scale = scale;
     } else {
        console.log('zoom in');
       this.player.sprite.x = this.player.sprite.x * scale;
@@ -588,6 +589,7 @@ var gameBase = {
       this.scale = scale;
     }
     console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
+    console.log(this.game.world);
     		// var count = this.player.sprite.scale;
 		//  var steps = (scale - count)/duration;
 		//  for (var i = 0; i < duration; i++) {
@@ -598,7 +600,14 @@ var gameBase = {
 		// 	this.scale = count;
 		//  console.log(count);
 		//  };
-	}
+
+
+
+	} ,
+  // render: function render()
+  //   {
+  //       this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
+  //   }
 };
 
 var game = {};
