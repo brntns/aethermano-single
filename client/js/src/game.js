@@ -62,7 +62,7 @@ var gameBase = {
 		this.map = new Map(this.game,this.player, this);
 		this.map.create(this.world.maps);
 		this.items = new Items(this.game,this);
-		this.zoomTo(5,200);
+		this.zoomTo(1,200);
 
 	},
 	update: function update() {
