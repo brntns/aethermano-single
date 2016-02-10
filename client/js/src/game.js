@@ -1,16 +1,16 @@
 var Items = require('./items/items');
 var Player = require('./player/player');
 var Map = require('./map/map');
+var Enemy = require('./client/enemy');
 // var Client = require('./client/client');
-var vines =  require('./handlers/vines');
-var climbchecks =  require('./handlers/climb');
-var teleport =  require('./handlers/teleport');
-var attackhandler =  require('./handlers/attackhandler');
-var playerchecks =  require('./handlers/playerchecks');
+var vines = require('./handlers/vines');
+var climbchecks = require('./handlers/climb');
+var teleport = require('./handlers/teleport');
+var attackhandler = require('./handlers/attackhandler');
+var playerchecks = require('./handlers/playerchecks');
 var gameWorld = require('./world/world.js')
 
 function Game() {
-
 	this.player = null;
 	this.map = null;
 	this.worldMap = [];
@@ -47,8 +47,6 @@ var gameBase = {
 		this.game.stage.backgroundColor = '#333333';
 		// enable frames manipulation & tracking
 		this.game.time.advancedTiming = true;
-        // this.bounds = Phaser.Rectangle.clone(this.game.world.bounds);
-
 		// enable physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.arcade.OVERLAP_BIAS = 100;
@@ -62,12 +60,17 @@ var gameBase = {
 		this.player.create();
 		this.world = new gameWorld.World();
 		this.world.create();
-		console.log(this.world);
 		this.map = new Map(this.game,this.player, this);
 		this.map.create(this.world.maps);
+
+    for (var i = 0; i < this.world.maps[0].monsters.length; i++) {
+      var monster = new Enemy(this.world.maps[0].monsters[i].id, this);
+      monster.create(this.world.maps[0].monsters[i]);
+      this.monsters.push(monster);
+    }
+
 		this.items = new Items(this.game,this);
 		this.zoomTo(1,200);
-
 	},
 	update: function update() {
 		// Menu
@@ -574,16 +577,13 @@ var gameBase = {
 		this.shadowTexture.dirty = true;
 	},
 	zoomTo: function zoomTo(scale, duration) {
-    console.log( scale);
+    // console.log(this.world);
 		this.player.sprite.scale.set(scale);
-		 this.map.collisionLayer.setScale(scale);
+    this.monsterGroup.scale.set(scale);
+
+		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
-
-     // this.add.tween(this.player.sprite.scale).to({ x: scale, y: scale} 2400, Phaser.Easing.Bounce.Out, true);
-
-     // this.add.tween(this.map.collisionLayer.setScale).to({ xScale: scale, yScale: scale}, 2400, Phaser.Easing.Bounce.Out, true);
-
-     this.map.collisionLayer.resizeWorld();
+    this.map.collisionLayer.resizeWorld();
     if(scale < this.scale){
       console.log('zoom out');
       this.player.sprite.x = this.player.sprite.x / this.scale;
@@ -594,8 +594,8 @@ var gameBase = {
       this.player.sprite.y = this.player.sprite.y * scale;
       this.scale = scale;
     }
-    console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
-    console.log(this.game.world);
+    // console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
+    // console.log(this.game.world);
    //  		var count = this.player.sprite.scale;
 		 // var steps = (scale - count)/duration;
 		 // for (var i = 0; i < duration; i++) {
@@ -606,11 +606,12 @@ var gameBase = {
 			// this.scale = count;
 		 //  console.log(count);
 		 // }
-	},
-  render: function render(){
-    this.game.debug.bodyInfo(this.player.sprite, 32, 32);
-    this.game.debug.body(this.player.sprite);
-  }
+	}
+  // ,
+  // render: function render(){
+  //   this.game.debug.bodyInfo(this.player.sprite, 32, 32);
+  //   this.game.debug.body(this.player.sprite);
+  // }
 };
 
 var game = {};
