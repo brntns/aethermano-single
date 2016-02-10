@@ -47,11 +47,12 @@ var gameBase = {
 		this.game.stage.backgroundColor = '#333333';
 		// enable frames manipulation & tracking
 		this.game.time.advancedTiming = true;
-        this.bounds = Phaser.Rectangle.clone(this.game.world.bounds);
+        // this.bounds = Phaser.Rectangle.clone(this.game.world.bounds);
 
 		// enable physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.arcade.OVERLAP_BIAS = 100;
+    this.game.physics.arcade.TILE_BIAS = 100;
 		this.monsterGroup = this.game.add.group();
 		this.boundsGroup = this.game.add.group();
 		this.menuGroup = this.game.add.group();
@@ -108,7 +109,7 @@ var gameBase = {
 		if (this.player.letterA.isDown && !this.zooming) {
 		  this.zooming = true;
 		  this.game.time.events.add(1000, function(){this.zooming = false;}, this);
-      this.zoomTo(3,200);
+      this.zoomTo(5,200);
     }
     if (this.player.letterO.isDown && !this.zooming) {
       this.zooming = true;
@@ -573,10 +574,15 @@ var gameBase = {
 		this.shadowTexture.dirty = true;
 	},
 	zoomTo: function zoomTo(scale, duration) {
-    console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
+    console.log( scale);
 		this.player.sprite.scale.set(scale);
-		this.map.collisionLayer.setScale(scale);
+		 this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
+
+     // this.add.tween(this.player.sprite.scale).to({ x: scale, y: scale} 2400, Phaser.Easing.Bounce.Out, true);
+
+     // this.add.tween(this.map.collisionLayer.setScale).to({ xScale: scale, yScale: scale}, 2400, Phaser.Easing.Bounce.Out, true);
+
      this.map.collisionLayer.resizeWorld();
     if(scale < this.scale){
       console.log('zoom out');
@@ -590,24 +596,21 @@ var gameBase = {
     }
     console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
     console.log(this.game.world);
-    		// var count = this.player.sprite.scale;
-		//  var steps = (scale - count)/duration;
-		//  for (var i = 0; i < duration; i++) {
-		// 	count = count + steps;
-		// 	this.player.sprite.scale.set(count);
-		// 	this.map.collisionLayer.setScale(count);
-		// 	this.map.collisionLayer.resizeWorld();
-		// 	this.scale = count;
-		//  console.log(count);
-		//  };
-
-
-
-	} ,
-  // render: function render()
-  //   {
-  //       this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
-  //   }
+   //  		var count = this.player.sprite.scale;
+		 // var steps = (scale - count)/duration;
+		 // for (var i = 0; i < duration; i++) {
+			// count = count + steps;
+			// this.player.sprite.scale.set(count);
+			// this.map.collisionLayer.setScale(count);
+			// this.map.collisionLayer.resizeWorld();
+			// this.scale = count;
+		 //  console.log(count);
+		 // }
+	},
+  render: function render(){
+    this.game.debug.bodyInfo(this.player.sprite, 32, 32);
+    this.game.debug.body(this.player.sprite);
+  }
 };
 
 var game = {};

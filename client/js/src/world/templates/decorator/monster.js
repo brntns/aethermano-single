@@ -9,19 +9,19 @@ exports.Monster = function(){
 exports.Monster.prototype = {
 	create: function (ret) {
 		this.monsterData = {};
-		console.log('Creating Monsters...');
+		// console.log('Creating Monsters...');
 		this.genUuid();
 		this.monsterBio(ret);
     this.gen();
-		console.log('Done Creating Monsters!');
+		// console.log('Done Creating Monsters!');
 	},
   spawn: function (data) {
 		this.monsterData = {};
-		console.log('Creating Monsters...');
+		// console.log('Creating Monsters...');
 		this.genUuid();
 		this.monsterBio(data);
     this.gen();
-		console.log('Done Creating Monsters!');
+		// console.log('Done Creating Monsters!');
 	},
   gen: function(){
 	//	console.log(this.monsterData);
