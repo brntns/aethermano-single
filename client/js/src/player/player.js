@@ -85,45 +85,7 @@ function Player(game,map) {
 
     this.scale = 1;
     if (this.sprite !== null && this.sprite !== undefined) {this.scale = this.sprite.scale.x}
-    //  console.log(scale);
-    this.mapSizex = 640;
-    this.tileSizex = 16;
-    this.gravity = 750 * this.scale;
-    //Teleport
-    this.teleportCd = 2000;
-    this.teleporting = 0;
-    this.teleportRangeX = 320 * this.scale;
-    this.teleportRangeY = 160 * this.scale;
-    //Deceleration
-    this.groundFriction = 950 * this.scale;
-    this.airFriction = 0 * this.scale;
-    this.groundCutoff = 200 * this.scale;
-    this.airCutoff = 5 * this.scale;
-    //Running
-    this.braking = 1950 * this.scale;
-    this.airbraking = 950 * this.scale;
-    this.airbrakeHigh = 2 * this.scale;
-    this.runnig = 250 * this.scale;
-    this.boost = 150 * this.scale;
-    this.boostWindow = 100;
-    this.floating = 500 * this.scale;
-    this.floatWindow = 250;
-    //Jumping
-    this.jumpSpeedBase = 250 * this.scale;
-    this.jumpSpeedCoeff = 7 * this.scale;
-    this.jumpAirtime = 500;
-    this.wallJumpTime = 150;
-    this.wallJumpBoost = 350 * this.scale;
-    this.wallJumpBonus = 50 * this.scale;
-    // Tron
-    this.tronspeed = 700 * this.scale;
-    this.tronleft = false;
-    this.tronright = false;
-    this.tronup = false;
-    this.trondown = false;
-    this.tronCd = 5000;
-    this.tronCool = true;
-    this.isActive = true;
+    this.updateScale(this.scale)
 
     this.jumpWindowTimer = null;
     this.jumpSpeedBonus = 0;

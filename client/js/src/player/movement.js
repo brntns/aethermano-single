@@ -361,7 +361,7 @@ var movement = {
   },
   switchToNormal: function switchToNormal() {
     this.moveMode = 0;
-    this.sprite.body.maxVelocity.y = 500;
+    this.updateScale(this.scale);
     this.sprite.body.allowGravity = true;
     this.tronWindow = true;
     this.mountingLadder = false;
@@ -369,6 +369,7 @@ var movement = {
   },
   switchToLadder: function switchToLadder() {
     this.moveMode = 3;
+    this.updateScale(this.scale);
     this.sprite.body.velocity.x = 0;
     this.sprite.body.velocity.y = 0;
     this.sprite.body.acceleration.x = 0;
@@ -376,9 +377,6 @@ var movement = {
     this.sprite.body.allowGravity = false;
   },
   climbLadder: function climbLadder() {
-    var upspeed = 150;
-    var downspeed = 150;
-    var sidespeed = 75;
     if (!this.mountingLadder) {
       this.sprite.body.velocity.y = 0;
       if (!this.cursors.up.isDown) {
@@ -388,10 +386,10 @@ var movement = {
     if (this.mountingLadder) {
       if (this.direction === 2 || this.direction === 3 || this.direction === 4 ) {
         // moving up
-        this.sprite.body.velocity.y = -upspeed;
+        this.sprite.body.velocity.y = -this.ladderUpspeed;
       } else if (this.direction === 6 || this.direction === 7 || this.direction === 8 ) {
         // moving down
-        this.sprite.body.velocity.y = downspeed;
+        this.sprite.body.velocity.y = this.ladderDownspeed;
       } else {
         // resting
         this.sprite.body.velocity.y = 0;
@@ -400,10 +398,10 @@ var movement = {
     if (this.mountingLadder) {
       if (this.direction === 8 || this.direction === 1 || this.direction === 2 ) {
         // moving right
-        this.sprite.body.velocity.x = sidespeed;
+        this.sprite.body.velocity.x = this.ladderSidespeed;
       } else if (this.direction === 4 || this.direction === 5 || this.direction === 6 ) {
         // moving left
-        this.sprite.body.velocity.x = -sidespeed;
+        this.sprite.body.velocity.x = -this.ladderSidespeed;
       } else {
         // resting
         this.sprite.body.velocity.x = 0;
@@ -443,7 +441,7 @@ var movement = {
   },
   updateScale: function updateScale(scale) {
     //  if (this.sprite !== null && this.sprite !== undefined) {scale = this.sprite.scale.x}
-    //  console.log(scale);
+    console.log('scale: ' + scale);
     this.mapSizex = 640;
     this.tileSizex = 16;
     this.gravity = 750 * scale;
@@ -482,8 +480,16 @@ var movement = {
     this.tronCd = 5000;
     this.tronCool = true;
     this.isActive = true;
+    //Ladder
+    this.ladderUpspeed = 150 * scale;
+    this.ladderDownspeed = 150 * scale;
+    this.ladderSidespeed = 75 * scale;
 
-    this.sprite.body.maxVelocity.y = 500 * scale;
+    if (this.sprite !== null && this.sprite !== undefined) {
+      this.sprite.body.maxVelocity.y = 500 * scale;
+    }
+    this.game.physics.arcade.gravity.y = this.gravity;
+    this.scale = scale;
   }
 };
 

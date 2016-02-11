@@ -1,25 +1,24 @@
 var climb = {
 
   climbCheck: function climbCheck() {
-
-    var coordsX = Math.floor((this.player.sprite.x - 15)/16);
-    var coordsY = Math.floor((this.player.sprite.y - 15)/16);
-    var limitX = this.map.currentMap.layers[0].width-3;
-    var limitY = this.map.currentMap.layers[0].height-3;
-    //console.log(this.map.collisionLayer.layer.data[0]);
-  //  console.log('x: '+coordsX+'  y: '+coordsY+'  limitX: '+limitX+'  limitY: '+limitY);
-    if (coordsX < limitX && coordsY > 3) {
-      this.climbCheckUR(this.map.collisionLayer, coordsX, coordsY);
-    }
-    if (coordsX > 3 && coordsY > 3) {
-      this.climbCheckUL(this.map.collisionLayer, coordsX, coordsY);
-    }
-    if (coordsX > 3 && coordsY < limitY) {
-      this.climbCheckDL(this.map.collisionLayer, coordsX, coordsY);
-    }
-    if (coordsX < limitX && coordsY < limitY) {
-      this.climbCheckDR(this.map.collisionLayer, coordsX, coordsY);
-    }
+    // var coordsX = Math.floor((this.player.sprite.x - 15)/16);
+    // var coordsY = Math.floor((this.player.sprite.y - 15)/16);
+    // var limitX = this.map.currentMap.layers[0].width-3;
+    // var limitY = this.map.currentMap.layers[0].height-3;
+    // //console.log(this.map.collisionLayer.layer.data[0]);
+    // //console.log('x: '+coordsX+'  y: '+coordsY+'  limitX: '+limitX+'  limitY: '+limitY);
+    // if (coordsX < limitX && coordsY > 3) {
+    //   this.climbCheckUR(this.map.collisionLayer, coordsX, coordsY);
+    // }
+    // if (coordsX > 3 && coordsY > 3) {
+    //   this.climbCheckUL(this.map.collisionLayer, coordsX, coordsY);
+    // }
+    // if (coordsX > 3 && coordsY < limitY) {
+    //   this.climbCheckDL(this.map.collisionLayer, coordsX, coordsY);
+    // }
+    // if (coordsX < limitX && coordsY < limitY) {
+    //   this.climbCheckDR(this.map.collisionLayer, coordsX, coordsY);
+    // }
   },
   climbCheckUR: function climbCheckUR(layer, coordsX, coordsY) {
     this.player.climbBoxUR = false;
