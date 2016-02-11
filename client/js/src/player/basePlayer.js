@@ -99,7 +99,7 @@ var basePlayer = {
 
     // adding gravity and Player Velocity
     this.game.physics.arcade.gravity.y = this.gravity;
-    this.sprite.body.maxVelocity.y = 500;
+    this.sprite.body.maxVelocity.y = 500 * this.scale;
     this.sprite.body.collideWorldBounds = true;
     // make the camera follow the player
     this.game.camera.follow(this.sprite,Phaser.FOLLOW_PLATFORMER);

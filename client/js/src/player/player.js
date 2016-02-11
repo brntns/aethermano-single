@@ -83,40 +83,40 @@ function Player(game,map) {
     this.specialOnCd = false;
     this.specialCd = 1000;
 
-    var scale = 1;
-    if (this.sprite !== null && this.sprite !== undefined) {scale = this.sprite.scale.x}
+    this.scale = 1;
+    if (this.sprite !== null && this.sprite !== undefined) {this.scale = this.sprite.scale.x}
     //  console.log(scale);
     this.mapSizex = 640;
     this.tileSizex = 16;
-    this.gravity = 750 * scale;
+    this.gravity = 750 * this.scale;
     //Teleport
     this.teleportCd = 2000;
     this.teleporting = 0;
-    this.teleportRangeX = 320 * scale;
-    this.teleportRangeY = 160 * scale;
+    this.teleportRangeX = 320 * this.scale;
+    this.teleportRangeY = 160 * this.scale;
     //Deceleration
-    this.groundFriction = 950 * scale;
-    this.airFriction = 0 * scale;
-    this.groundCutoff = 200 * scale;
-    this.airCutoff = 5 * scale;
+    this.groundFriction = 950 * this.scale;
+    this.airFriction = 0 * this.scale;
+    this.groundCutoff = 200 * this.scale;
+    this.airCutoff = 5 * this.scale;
     //Running
-    this.braking = 1950 * scale;
-    this.airbraking = 950 * scale;
-    this.airbrakeHigh = 2 * scale;
-    this.runnig = 250 * scale;
-    this.boost = 150 * scale;
+    this.braking = 1950 * this.scale;
+    this.airbraking = 950 * this.scale;
+    this.airbrakeHigh = 2 * this.scale;
+    this.runnig = 250 * this.scale;
+    this.boost = 150 * this.scale;
     this.boostWindow = 100;
-    this.floating = 500 * scale;
+    this.floating = 500 * this.scale;
     this.floatWindow = 250;
     //Jumping
-    this.jumpSpeedBase = 250 * scale;
-    this.jumpSpeedCoeff = 7 * scale;
+    this.jumpSpeedBase = 250 * this.scale;
+    this.jumpSpeedCoeff = 7 * this.scale;
     this.jumpAirtime = 500;
     this.wallJumpTime = 150;
-    this.wallJumpBoost = 350 * scale;
-    this.wallJumpBonus = 50 * scale;
+    this.wallJumpBoost = 350 * this.scale;
+    this.wallJumpBonus = 50 * this.scale;
     // Tron
-    this.tronspeed = 700 * scale;
+    this.tronspeed = 700 * this.scale;
     this.tronleft = false;
     this.tronright = false;
     this.tronup = false;

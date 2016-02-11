@@ -482,6 +482,8 @@ var movement = {
     this.tronCd = 5000;
     this.tronCool = true;
     this.isActive = true;
+
+    this.sprite.body.maxVelocity.y = 500 * scale;
   }
 };
 

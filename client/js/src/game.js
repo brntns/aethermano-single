@@ -62,6 +62,7 @@ var gameBase = {
 		this.world.create();
 		this.map = new Map(this.game,this.player, this);
 		this.map.create(this.world.maps);
+		this.map.currentMap = this.map.maps[0];
 
     for (var i = 0; i < this.world.maps[0].monsters.length; i++) {
       var monster = new Enemy(this.world.maps[0].monsters[i].id, this);
@@ -580,14 +581,15 @@ var gameBase = {
     // console.log(this.world);
 		this.player.sprite.scale.set(scale);
     this.monsterGroup.scale.set(scale);
-
+    this.ladders.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
     this.map.collisionLayer.resizeWorld();
-    if(scale < this.scale){
+    if (scale < this.scale) {
       console.log('zoom out');
-      this.player.sprite.x = this.player.sprite.x / this.scale;
-      this.player.sprite.y = this.player.sprite.y / this.scale;
+      this.player.sprite.x = Math.floor(this.player.sprite.x / this.scale);
+      this.player.sprite.y = Math.floor(this.player.sprite.y / this.scale);
+      this.scale = scale;
     } else {
        console.log('zoom in');
       this.player.sprite.x = this.player.sprite.x * scale;
