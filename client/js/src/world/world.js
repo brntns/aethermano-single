@@ -20,7 +20,7 @@ exports.World.prototype = {
 		this.build(3,'room',50,30);
 	  this.build(4,'room',50,30);
 		this.build(5,'level',300,100);
-		this.build(1,'level',300,100);
+		this.build(6,'level',300,100);
 		console.log(this.maps);
 
 	},

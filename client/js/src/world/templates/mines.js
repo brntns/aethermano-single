@@ -397,8 +397,8 @@ exports.Mines.prototype = {
     }
 		if (type === 'room') {
 			this.setMap(mapWidth, mapHeight, this.maps.length + 1, 'room');
-			this.makeTerrain(0,0, mapWidth ,mapHeight, mapWidth, mapHeight, 13);
-			this.makeTerrain(mapWidth / 2 -12 ,mapHeight / 2 -8, mapWidth / 2 ,mapHeight /2 , mapWidth, mapHeight, 0);
+			this.makeTerrain(0, 0, mapWidth, mapHeight, mapWidth, mapHeight, 13);
+			this.makeTerrain(mapWidth / 2 - 12, mapHeight / 2 - 8, mapWidth / 2, mapHeight / 2, mapWidth, mapHeight, 0);
 		} else {
       this.Bedrock(0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
 	    this.setMap(mapWidth, mapHeight,this.maps.length + 1,'level');

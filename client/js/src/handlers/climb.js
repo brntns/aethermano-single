@@ -1,12 +1,13 @@
 var climb = {
 
   climbCheck: function climbCheck() {
-    var coordsX = Math.floor((this.player.sprite.x - 15)/16) * this.game.scale;
-    var coordsY = Math.floor((this.player.sprite.y - 15)/16) * this.game.scale;
-    var limitX = this.map.currentMap.layer[0].width-3 * this.game.scale;
-    var limitY = this.map.currentMap.layer[0].height-3 * this.game.scale;
-    //console.log(this.map.collisionLayer.layer.data[0]);
-    //console.log('x: '+coordsX+'  y: '+coordsY+'  limitX: '+limitX+'  limitY: '+limitY);
+    var coordsX = Math.floor((this.player.sprite.x - 15) / 16 * this.Scale);
+    var coordsY = Math.floor((this.player.sprite.y - 15) / 16 * this.Scale);
+    var limitX = this.map.currentMap.layers[0].width - 3;
+    var limitY = this.map.currentMap.layers[0].height - 3;
+    // console.log(this.map.collisionLayer.layer.data[0]);
+    // console.log(this.Scale);
+    // console.log('x: '+coordsX+'  y: '+coordsY+'  limitX: '+limitX+'  limitY: '+limitY);
     if (coordsX < limitX && coordsY > 3) {
       this.climbCheckUR(this.map.collisionLayer, coordsX, coordsY);
     }

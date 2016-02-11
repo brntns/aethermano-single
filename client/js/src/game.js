@@ -39,7 +39,7 @@ function Game() {
 	this.lightradius = 175;
   this.lightSprite = null;
 	this.bounds = null;
-	this.scale = 1;
+	this.Scale = 1;
   this.zooming = false;
 }
 
@@ -64,7 +64,7 @@ var gameBase = {
 		this.world.create();
 		this.map = new Map(this.game,this.player, this);
 		this.map.create(this.world.maps);
-		this.map.currentMap = this.map.maps[0];
+		// this.map.currentMap = this.map.maps[0];
 
     // this.menu = new Menu(this);
     // this.menu.create();
@@ -164,7 +164,9 @@ var gameBase = {
 			} else {
 				this.player.onLadder = false;
 			}
-			this.climbCheck();
+			if (this.map.currentMap !== undefined && this.map.collisionLayer !== undefined) {
+				// this.climbCheck();
+			}
 			// if (this.compasses.length > 0) {
 			//   for (var i = 0; i < this.compasses.length; i++) {
 			//     this.compasses[i].sprite.bringToTop();
@@ -599,16 +601,16 @@ var gameBase = {
 		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
     this.map.collisionLayer.resizeWorld();
-    if (scale < this.scale) {
+    if (scale < this.Scale) {
       console.log('zoom out');
       this.player.sprite.x = Math.floor(this.player.sprite.x / this.scale);
       this.player.sprite.y = Math.floor(this.player.sprite.y / this.scale);
-      this.scale = scale;
+      this.Scale = scale;
     } else {
        console.log('zoom in');
       this.player.sprite.x = this.player.sprite.x * scale;
       this.player.sprite.y = this.player.sprite.y * scale;
-      this.scale = scale;
+      this.Scale = scale;
     }
 	}
   // ,
