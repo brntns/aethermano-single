@@ -37,6 +37,7 @@ function Game() {
 	this.lights = null;
 	this.locationGroup = null;
 	this.lightradius = 175;
+  this.lightSprite = null;
 	this.bounds = null;
 	this.scale = 1;
   this.zooming = false;
@@ -49,12 +50,11 @@ var gameBase = {
 		this.game.time.advancedTiming = true;
 		// enable physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		this.game.physics.arcade.OVERLAP_BIAS = 100;
+		this.game.physics.arcade.OVERLAP_BIAS = 10;
     this.game.physics.arcade.TILE_BIAS = 100;
 		this.monsterGroup = this.game.add.group();
 		this.boundsGroup = this.game.add.group();
 		this.menuGroup = this.game.add.group();
-
 
     this.ladders = this.game.add.group();
 		// creating game components
@@ -78,12 +78,17 @@ var gameBase = {
 		this.items = new Items(this);
     this.items.create(this.world.maps[0].locations);
 		this.zoomTo(1,200);
+
+    this.lights = this.game.add.group();
+    this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
+    this.shadowTexture.fixedToCamera = true;
+    this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
+    this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+    this.lights.add(this.lightSprite);
 	},
 	update: function update() {
 		// Menu
 			// if(this.map.collisionLayer){
-				// this.map.marker.x = this.map.collisionLayer.getTileX(this.game.input.activePointer.worldX) * 16;
-				// this.map.marker.y = this.map.collisionLayer.getTileY(this.game.input.activePointer.worldY) * 16;
 
 				// if (this.game.input.mousePointer.isDown){
 				//   // if (this.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT))
@@ -139,9 +144,9 @@ var gameBase = {
 		//   this.player.sprite.alpha = 1;
 		// }
 		// Collision
-		if (this.player !== null  ) {
-			// this.updateShadowTexture();
-			// this.lightSprite.bringToTop();
+		if (this.player !== null) {
+			this.updateShadowTexture();
+			this.lightSprite.bringToTop();
 			//console.log(this.player.status);
 			// make player collide
 			this.game.physics.arcade.collide(this.player.sprite, this.map.collisionLayer);
@@ -569,8 +574,8 @@ var gameBase = {
 		this.shadowTexture.context.fillRect(0, 0, this.game.width, this.game.height);
 		this.lights.forEach(function(light) {
 			var radius = this.lightradius,
-					heroX = light.x - this.game.camera.x,
-					heroY = light.y - this.game.camera.y;
+					heroX = this.player.sprite.x,
+					heroY = this.player.sprite.y;
 			// Draw circle
 			var gradient = this.shadowTexture.context.createRadialGradient(
 				heroX, heroY, this.lightradius * 0.5,
@@ -590,6 +595,7 @@ var gameBase = {
 		this.player.sprite.scale.set(scale);
     this.monsterGroup.scale.set(scale);
     this.ladders.scale.set(scale);
+    this.locationGroup.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
     this.map.collisionLayer.resizeWorld();
@@ -604,18 +610,6 @@ var gameBase = {
       this.player.sprite.y = this.player.sprite.y * scale;
       this.scale = scale;
     }
-    // console.log( this.player.sprite.x, this.player.sprite.y,this.scale,scale);
-    // console.log(this.game.world);
-   //  		var count = this.player.sprite.scale;
-		 // var steps = (scale - count)/duration;
-		 // for (var i = 0; i < duration; i++) {
-			// count = count + steps;
-			// this.player.sprite.scale.set(count);
-			// this.map.collisionLayer.setScale(count);
-			// this.map.collisionLayer.resizeWorld();
-			// this.scale = count;
-		 //  console.log(count);
-		 // }
 	}
   // ,
   // render: function render(){
