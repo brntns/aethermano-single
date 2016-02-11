@@ -1,5 +1,4 @@
 'use strict';
-//var fs = require('fs');
 var _ = require('lodash');
 var debug = true;
 var Mines = require('./templates/mines.js');

@@ -21,14 +21,14 @@ function Map(game, player, myGame) {
   this.client = null;
 	this.lastPos = null;
   this.locationSprites = [];
-	this.marker = null;
 }
 
 var mapBase = {
 
 	create: function (data) {
-    this.maps = data[0].map;
-    //console.log(this.maps[0]);
+    console.log(data);
+     this.maps = data;
+    // console.log(this.maps[0]);
   //   this.tilemap = this.game.load.tilemap(this.maps[0].id, null, this.maps[0], Phaser.Tilemap.TILED_JSON );
   //   this.tileset = this.game.add.tilemap(this.maps[0].id);
 		// this.tileset.addTilesetImage('tiles-1');
@@ -43,15 +43,12 @@ var mapBase = {
 		// this.marker = this.game.add.graphics();
 		// this.marker.lineStyle(2, 0x000000, 1);
 		// this.marker.drawRect(0, 0,16,16);
-     this.setCurrentLevel();
+      this.setCurrentLevel(this.maps[0].map[0],'map',this.maps[0].map[0].type);
+
 		//add groups
 	},
-	update: function(data,level) {
-    this.maps = data;
-    this.setCurrentLevel();
-	},
-  setCurrentLevel: function setCurrentLevel() {
-	//	console.log(level);
+  setCurrentLevel: function setCurrentLevel(level,name,type) {
+		console.log(level);
 		this.player.sprite.x = 400;
 		this.player.sprite.y = 200;
 		//console.log(level);
@@ -60,8 +57,8 @@ var mapBase = {
       this.collisionLayer.destroy();
     	//console.log('destroyed');
     }
-     this.tilemap = this.game.load.tilemap(this.maps[0].id, null, this.maps[0], Phaser.Tilemap.TILED_JSON );
-    this.tileset = this.game.add.tilemap(this.maps[0].id);
+    this.tilemap = this.game.load.tilemap(level.id, null, level, Phaser.Tilemap.TILED_JSON );
+    this.tileset = this.game.add.tilemap(level.id);
     this.tileset.addTilesetImage('tiles-1');
     this.tileset.setCollisionByExclusion([
       0
@@ -70,15 +67,15 @@ var mapBase = {
     this.collisionLayer = this.tileset.createLayer('Tile Layer 1');
 		this.collisionLayer.renderSettings.enableScrollDelta = true;
     this.collisionLayer.resizeWorld();
-		// if (type === 'room') {
-		// 	this.room = this.game.add.sprite(this.game.world.centerX - 32,this.game.world.centerY , 'door');
-		// 	this.game.physics.arcade.enable(this.room);
-		// 	this.room.body.allowGravity  = false;
-		// } else {
-		// 	if(this.room){
-		// 		this.room.kill();
-		// 	}
-		// }
+		if (type === 'room') {
+			this.room = this.game.add.sprite(this.game.world.centerX - 32,this.game.world.centerY , 'door_inner');
+			this.game.physics.arcade.enable(this.room);
+			this.room.body.allowGravity  = false;
+		} else {
+			if(this.room){
+				this.room.kill();
+			}
+		}
   }
 }
 

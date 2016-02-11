@@ -15,11 +15,11 @@ exports.World.prototype = {
 	create: function () {
 
 		this.build(0,'level',1000,300);
-		// this.build(1,'room',50,30);
-		// this.build(2,'room',50,30);
-		// this.build(3,'room',50,30);
-	 //   this.build(4,'room',50,30);
-		// this.build(5,'level',300,100);
+		this.build(1,'room',50,30);
+		this.build(2,'room',50,30);
+		this.build(3,'room',50,30);
+	  this.build(4,'room',50,30);
+		this.build(5,'level',300,100);
 		this.build(1,'level',300,100);
 		console.log(this.maps);
 
@@ -27,24 +27,19 @@ exports.World.prototype = {
 	build: function build(id,type,width,height){
 		var mapWrap = {
 			id:id,
+      type:type,
 			map: [],
 			locations: [],
 			spawnpoints: [],
 			monsters: [],
 			entrances: [],
 			exits: []
-
 		};
 		//level
 		mines.generate(width,height,type);
-		//door
-		//console.log(mines.monsters);
-
-
 		// push and clear
 		mapWrap.map.push(mines.mapData);
 		mapWrap.monsters = mines.monsters;
-
     if(type === 'level'){
       var doorX = mines.rooms[id].x;
       var doorY = mines.rooms[id].y + mines.rooms[id].height - 4;

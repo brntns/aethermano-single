@@ -76,8 +76,7 @@ var gameBase = {
     }
     this.locationGroup  = this.game.add.group();
 		this.items = new Items(this);
-  this.items.create(this.world.maps[0].locations);
-
+    this.items.create(this.world.maps[0].locations);
 		this.zoomTo(1,200);
 	},
 	update: function update() {
@@ -246,9 +245,12 @@ var gameBase = {
 		this.map.create(this.worldMap[0].map);
 	},
 	changeLevel: function changeLevel(playerSprite, location) {
+
 		if (this.player.cursors.up.isDown) {
-			this.map.update(this.world.maps[0]);
-			this.items.create(this.world.maps[0].locations);
+       console.log(location.i);
+
+			this.map.setCurrentLevel(this.world.maps[location.i].map[0],'map',this.world.maps[location.i].type);
+			this.items.create(this.world.maps[location.i].locations);
 		}
 	},
 	globalChat: function globalChat(e) {
