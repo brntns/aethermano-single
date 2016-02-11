@@ -29,9 +29,6 @@ paths = {
   dist:   ['./dist/']
 };
 
-gulp.task('run', function () {
-  return run('electron . ').exec();
-});
 
 // add custom browserify options here
 var customOpts = {

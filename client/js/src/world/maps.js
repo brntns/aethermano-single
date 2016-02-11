@@ -403,6 +403,7 @@ exports.Map.prototype = {
   setMap: function(mapWidth, mapHeight, id, type){
 		this.mapData = {
 			"id": id,
+      "i":0,
 			"type":type,
 			"height":16,
 			"layers":[{

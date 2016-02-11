@@ -1,12 +1,13 @@
 'use strict';
 
-function Items( items,game) {
+function Items(game) {
 
   this.game = game;
 
 };
 var itemBase = {
   create: function (data) {
+    console.log(data)
     if(this.game.locationGroup !== null){
       this.game.locationGroup.removeChildren(0, this.game.locationGroup.length);
     }
@@ -17,7 +18,7 @@ var itemBase = {
   	//	if (data[i].i === 1) {
         var sprite = null;
         sprite = this.game.locationGroup.getFirstDead();
-      	sprite = this.game.add.sprite(96,64, 'door');
+      	sprite = this.game.add.sprite(96,64, 'door_inner');
         sprite.physicsType = Phaser.SPRITE;
         this.game.physics.arcade.enable(sprite);
         sprite.body.collideWorldBounds = true;

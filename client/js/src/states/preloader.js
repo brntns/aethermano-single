@@ -28,6 +28,8 @@ Preloader.prototype = {
     this.game.load.spritesheet('magic_missile', 'assets/player/magic_missile.png', 32, 32);
     this.game.load.spritesheet('rotten', 'assets/player/magic_missile.png', 32, 32);
     this.game.load.spritesheet('spoon', 'assets/player/magic_missile.png', 32, 32);
+    // door
+    this.game.load.image('door_inner', 'assets/door_inner.png');
     // hut
     this.game.load.image('jungle_hut', 'assets/jungle_hut.png');
     this.game.load.image('jungle_hut_inner', 'assets/hut.png');

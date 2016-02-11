@@ -9,7 +9,7 @@ var teleport = require('./handlers/teleport');
 var attackhandler = require('./handlers/attackhandler');
 var playerchecks = require('./handlers/playerchecks');
 var gameWorld = require('./world/world.js')
-
+var Menu = require('./client/menu/menu');
 function Game() {
 	this.player = null;
 	this.map = null;
@@ -54,7 +54,9 @@ var gameBase = {
 		this.monsterGroup = this.game.add.group();
 		this.boundsGroup = this.game.add.group();
 		this.menuGroup = this.game.add.group();
-		this.ladders = this.game.add.group();
+
+
+    this.ladders = this.game.add.group();
 		// creating game components
 		this.player = new Player(this.game, this.map);
 		this.player.create();
@@ -64,18 +66,22 @@ var gameBase = {
 		this.map.create(this.world.maps);
 		this.map.currentMap = this.map.maps[0];
 
+    // this.menu = new Menu(this);
+    // this.menu.create();
+
     for (var i = 0; i < this.world.maps[0].monsters.length; i++) {
       var monster = new Enemy(this.world.maps[0].monsters[i].id, this);
       monster.create(this.world.maps[0].monsters[i]);
       this.monsters.push(monster);
     }
+    this.locationGroup  = this.game.add.group();
+		this.items = new Items(this);
+  this.items.create(this.world.maps[0].locations);
 
-		this.items = new Items(this.game,this);
 		this.zoomTo(1,200);
 	},
 	update: function update() {
 		// Menu
-			//  var marker = {};#
 			// if(this.map.collisionLayer){
 				// this.map.marker.x = this.map.collisionLayer.getTileX(this.game.input.activePointer.worldX) * 16;
 				// this.map.marker.y = this.map.collisionLayer.getTileY(this.game.input.activePointer.worldY) * 16;
@@ -94,8 +100,8 @@ var gameBase = {
 				//   // }
 				// }
 			// }
-			// if(this.menuOpen){
-		//   // this.client.menu.update(this.player.cursors);
+		// if(this.menuOpen){
+		//    this.menu.update(this.player.cursors);
 		// } else {
 		//   this.menuGroup.destroy();
 		// }
@@ -109,11 +115,11 @@ var gameBase = {
 		//   }
 		//   this.incomingChat = [];
 		// }
-		// Deathchat
+
 		if (this.player.letterA.isDown && !this.zooming) {
 		  this.zooming = true;
 		  this.game.time.events.add(1000, function(){this.zooming = false;}, this);
-      this.zoomTo(5,200);
+      this.zoomTo(4,200);
     }
     if (this.player.letterO.isDown && !this.zooming) {
       this.zooming = true;
@@ -141,7 +147,7 @@ var gameBase = {
 			// make player collide
 			this.game.physics.arcade.collide(this.player.sprite, this.map.collisionLayer);
 			//this.game.physics.arcade.collide(this.player.sprite,this.boundsGroup);
-			this.game.physics.arcade.collide(this.player.sprite, this.items.item, this.itemCollisionHandler, null, this);
+			// this.game.physics.arcade.collide(this.player.sprite, this.items.item, this.itemCollisionHandler, null, this);
 			this.game.physics.arcade.collide(this.monsterGroup, this.map.collisionLayer, this.enemyHandler, null, this);
 			//this.game.physics.arcade.overlap(this.player.sprite,this.monsterGroup, this.enemyCollisionHandler, null, this);
 			this.game.physics.arcade.overlap(this.player.hitbox1, this.monsterGroup, this.enemySlashingHandler, null, this);
@@ -160,11 +166,11 @@ var gameBase = {
 			//     this.compasses[i].sprite.bringToTop();
 			//   }
 			// }
-			// if (this.locationGroup.length > 0) {
-			//   for (var i = 0; i < this.locationGroup.length; i++) {
-			//     this.locationGroup.children[i].bringToTop();
-			//   }
-			// }
+			if (this.locationGroup.length > 0) {
+			  for (var i = 0; i < this.locationGroup.length; i++) {
+			    this.locationGroup.children[i].bringToTop();
+			  }
+			}
 			this.player.sprite.bringToTop();
 			// this.player.climbboxUR.bringToTop();
 			// this.player.climbboxUL.bringToTop();
@@ -241,8 +247,8 @@ var gameBase = {
 	},
 	changeLevel: function changeLevel(playerSprite, location) {
 		if (this.player.cursors.up.isDown) {
-			this.map.update(this.world[location.i].map);
-			this.items.create(this.world[location.i].locations);
+			this.map.update(this.world.maps[0]);
+			this.items.create(this.world.maps[0].locations);
 		}
 	},
 	globalChat: function globalChat(e) {

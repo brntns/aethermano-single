@@ -2,9 +2,8 @@
 var buttons = require('./buttons');
 var arrow = require('./arrow');
 
-function Menu(client,game) {
+function Menu(game) {
  this.game = game;
- this.client = client;
 }
 
 var menuBase =  {

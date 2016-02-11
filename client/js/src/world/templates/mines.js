@@ -443,6 +443,14 @@ exports.Mines.prototype = {
     //this.maps.push(this.mapData);
     this.locationSprites.push(this.locations);
     //console.log(this.locationSprites);
+    // if(type === 'level'){
+    //   var doorX = map.rooms[id].x;
+    //   var doorY = map.rooms[id].y + map.rooms[id].height - 4;
+    // } else {
+    //   var doorX = Math.floor(width / 2);
+    //   var doorY = Math.floor(height / 2);
+    // }
+    // items.createItem(200,200,'door',21);
     //console.log(this.maps);
   }
 };
