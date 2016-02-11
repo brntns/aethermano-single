@@ -4,23 +4,18 @@ function Map(game, player, myGame) {
 	this.myGame = myGame;
 	this.player = player;
 	this.game = game;
-	this.bg = null;
   this.maps = null;
 	this.room = null;
   this.tilemap = null;
   this.currentMap = null;
 	this.tileset = null;
 	this.collisionLayer = null;
-  this.portal = {};
-  this.portal.x = null;
-  this.portal.y = null;
-	this.bleft = null;
+  this.bleft = null;
 	this.bright =  null;
 	this.btop =  null;
 	this.bbottom =  null;
   this.client = null;
 	this.lastPos = null;
-  this.locationSprites = [];
 }
 
 var mapBase = {
@@ -31,6 +26,7 @@ var mapBase = {
 	},
   setCurrentLevel: function setCurrentLevel(level,name,type) {
 		console.log(level);
+    this.currentMap = level;
 		this.player.sprite.x = 400;
 		this.player.sprite.y = 200;
 		//console.log(level);
