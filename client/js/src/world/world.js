@@ -13,7 +13,6 @@ exports.World = function(){
 };
 exports.World.prototype = {
 	create: function () {
-
 		this.build(0,'level',1000,300);
 		this.build(1,'room',50,30);
 		this.build(2,'room',50,30);
@@ -22,7 +21,6 @@ exports.World.prototype = {
 		this.build(5,'level',300,100);
 		this.build(1,'level',300,100);
 		console.log(this.maps);
-
 	},
 	build: function build(id,type,width,height){
 		var mapWrap = {
