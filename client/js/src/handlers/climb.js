@@ -1,8 +1,8 @@
 var climb = {
 
   climbCheck: function climbCheck() {
-    var coordsX = Math.floor((this.player.sprite.x - 15) / 16 * this.Scale);
-    var coordsY = Math.floor((this.player.sprite.y - 15) / 16 * this.Scale);
+    var coordsX = Math.floor((this.player.sprite.x - 15) / (16 * this.Scale));
+    var coordsY = Math.floor((this.player.sprite.y - 15) / (16 * this.Scale));
     var limitX = this.map.currentMap.layers[0].width - 3;
     var limitY = this.map.currentMap.layers[0].height - 3;
     // console.log(this.map.collisionLayer.layer.data[0]);

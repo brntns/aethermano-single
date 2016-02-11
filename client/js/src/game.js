@@ -168,7 +168,7 @@ var gameBase = {
 				this.player.onLadder = false;
 			}
 			if (this.map.currentMap !== undefined && this.map.collisionLayer !== undefined) {
-				// this.climbCheck();
+			  this.climbCheck();
 			}
 			// if (this.compasses.length > 0) {
 			//   for (var i = 0; i < this.compasses.length; i++) {
@@ -181,10 +181,10 @@ var gameBase = {
 			  }
 			}
 			this.player.sprite.bringToTop();
-			// this.player.climbboxUR.bringToTop();
-			// this.player.climbboxUL.bringToTop();
-			// this.player.climbboxDL.bringToTop();
-			// this.player.climbboxDR.bringToTop();
+			this.player.climbboxUR.bringToTop();
+			this.player.climbboxUL.bringToTop();
+			this.player.climbboxDL.bringToTop();
+			this.player.climbboxDR.bringToTop();
 			if (this.player.text !== null) {
 				this.player.text.bringToTop();
 			}
@@ -596,8 +596,12 @@ var gameBase = {
 		this.shadowTexture.dirty = true;
 	},
 	zoomTo: function zoomTo(scale, duration) {
-    // console.log(this.world);
+    // console.log(this.map.collisionLayer);
 		this.player.sprite.scale.set(scale);
+		this.player.climbboxUR.scale.set(scale);
+		this.player.climbboxUL.scale.set(scale);
+		this.player.climbboxDR.scale.set(scale);
+		this.player.climbboxDL.scale.set(scale);
     this.monsterGroup.scale.set(scale);
     this.ladders.scale.set(scale);
     this.locationGroup.scale.set(scale);

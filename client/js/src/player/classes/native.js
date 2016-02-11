@@ -106,10 +106,10 @@ var Native = {
   },
   climbingMask: function climbingMask() {
     this.climbboxUR.x = this.sprite.x;
-    this.climbboxUR.y = this.sprite.y - 19;
-    this.climbboxUL.x = this.sprite.x - 19;
-    this.climbboxUL.y = this.sprite.y - 19;
-    this.climbboxDL.x = this.sprite.x- 19;
+    this.climbboxUR.y = this.sprite.y - 19 * this.game.Scale;
+    this.climbboxUL.x = this.sprite.x - 19 * this.game.Scale;
+    this.climbboxUL.y = this.sprite.y - 19 * this.game.Scale;
+    this.climbboxDL.x = this.sprite.x- 19 * this.game.Scale;
     this.climbboxDL.y = this.sprite.y;
     this.climbboxDR.x = this.sprite.x;
     this.climbboxDR.y = this.sprite.y;
