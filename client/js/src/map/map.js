@@ -14,7 +14,6 @@ function Map(game, player, myGame) {
 	this.bright =  null;
 	this.btop =  null;
 	this.bbottom =  null;
-  this.client = null;
 	this.lastPos = null;
 }
 

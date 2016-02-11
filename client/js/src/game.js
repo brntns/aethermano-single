@@ -81,9 +81,12 @@ var gameBase = {
 
     this.lights = this.game.add.group();
     this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
-    this.shadowTexture.fixedToCamera = true;
+
+
+    console.log(this.camera);
     this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
     this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+    this.lightSprite.fixedToCamera = true;
     this.lights.add(this.lightSprite);
 	},
 	update: function update() {
@@ -576,8 +579,8 @@ var gameBase = {
 		this.shadowTexture.context.fillRect(0, 0, this.game.width, this.game.height);
 		this.lights.forEach(function(light) {
 			var radius = this.lightradius,
-					heroX = this.player.sprite.x,
-					heroY = this.player.sprite.y;
+					heroX = this.player.sprite.x - this.game.camera.x,
+					heroY = this.player.sprite.y - this.game.camera.y;
 			// Draw circle
 			var gradient = this.shadowTexture.context.createRadialGradient(
 				heroX, heroY, this.lightradius * 0.5,
@@ -600,6 +603,12 @@ var gameBase = {
     this.locationGroup.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
+    if (this.lights !== null) {
+      this.lightSprite.scale.set(scale);
+      this.lightradius = 300;
+      this.updateShadowTexture();
+    }
+
     this.map.collisionLayer.resizeWorld();
     if (scale < this.Scale) {
       console.log('zoom out');
@@ -607,7 +616,7 @@ var gameBase = {
       this.player.sprite.y = Math.floor(this.player.sprite.y / this.scale);
       this.Scale = scale;
     } else {
-       console.log('zoom in');
+      console.log('zoom in');
       this.player.sprite.x = this.player.sprite.x * scale;
       this.player.sprite.y = this.player.sprite.y * scale;
       this.Scale = scale;
