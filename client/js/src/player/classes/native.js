@@ -57,50 +57,51 @@ var Native = {
     }
   },
   shoot:function shoot(Player) {
-    this.slashing = true;
-    this.slashAni = true;
-    this.slashed = true;
+    Player.slashing = true;
+    Player.slashAni = true;
+    Player.slashed = true;
     var Shoot = null;
-    if (this.Facing === 1 || this.Facing === 2 || this.Facing === 8) {
-      Shoot = this.sprite.animations.play('native_shoot_right');
-      this.status = 90;
-      this.bullet = this.bullets.create(
-        this.sprite.x + 28,
-        this.sprite.y - 15,
+    if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
+      Shoot = Player.sprite.animations.play('native_shoot_right');
+      Player.status = 90;
+      Player.bullet = Player.bullets.create(
+        Player.sprite.x + 28 * Player.sprite.scale.x,
+        Player.sprite.y - 15 * Player.sprite.scale.y,
         'arrow'
       );
     
     } else {
-      Shoot = this.sprite.animations.play('native_shoot_left');
-      this.status = 91;
-      this.bullet = this.bullets.create(
-        this.sprite.x - 52,
-        this.sprite.y - 15,
+      Shoot = Player.sprite.animations.play('native_shoot_left');
+      Player.status = 91;
+      Player.bullet = Player.bullets.create(
+        Player.sprite.x - 52 * Player.sprite.scale.x,
+        Player.sprite.y - 15 * Player.sprite.scale.y,
         'arrow'
       );
     }
     Shoot.onComplete.add(function() {
       Player.slashAni = false;
     });
-    this.game.physics.enable(this.bullet, Phaser.Physics.ARCADE);
-    this.bullet.outOfBoundsKill = true;
-    this.bullet.body.setSize(5,3,11,14);
-    this.bullet.body.allowGravity = false;
-    this.bullet.body.velocity.y = 0;
-    if (this.Facing === 1 || this.Facing === 2 || this.Facing === 8) {
-      this.bullet.body.velocity.x = 400;
-      this.bullet.frame = 0;
+    Player.game.physics.enable(Player.bullet, Phaser.Physics.ARCADE);
+    Player.bullet.scale.set(Player.sprite.scale.x);
+    Player.bullet.outOfBoundsKill = true;
+    Player.bullet.body.setSize(5 * Player.sprite.scale.x, 3 * Player.sprite.scale.y, 11 * Player.sprite.scale.y, 14 * Player.sprite.scale.y);
+    Player.bullet.body.allowGravity = false;
+    Player.bullet.body.velocity.y = 0;
+    if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
+      Player.bullet.body.velocity.x = 400 * Player.sprite.scale.x;
+      Player.bullet.frame = 0;
     } else {
-      this.bullet.body.velocity.x = -400;
-      this.bullet.frame = 11;
+      Player.bullet.body.velocity.x = -400 * Player.sprite.scale.x;
+      Player.bullet.frame = 11;
     }
-    this.bullet.animations.add('explode_right', [1,2,3,4,5], 10, false);
-    this.bullet.animations.add('explode_left', [10,9,8,7,6], 10, false);
-    this.slashTimer = this.game.time.events.add(this.slashTime,function(){
-      this.slashing = false;
-      this.slashed = false;
-      if (this.bullet !== undefined) {
-        this.bullet.kill();
+    Player.bullet.animations.add('explode_right', [1,2,3,4,5], 10, false);
+    Player.bullet.animations.add('explode_left', [10,9,8,7,6], 10, false);
+    Player.slashTimer = Player.game.time.events.add(Player.slashTime,function(){
+      Player.slashing = false;
+      Player.slashed = false;
+      if (Player.bullet !== undefined) {
+        Player.bullet.kill();
       }
     },this);
   },

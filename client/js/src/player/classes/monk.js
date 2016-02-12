@@ -41,7 +41,7 @@ var Monk = {
       case 0:
       if (this.gliding) {
         this.sprite.body.acceleration.y = 0;
-        this.sprite.body.maxVelocity.y = 500;
+        this.sprite.body.maxVelocity.y = 500 * this.sprite.scale.y;
         this.sprite.body.allowGravity = true;
         this.gliding = false;
       }
@@ -49,7 +49,7 @@ var Monk = {
       case 1: // Gliding
       if (!this.gliding) {
         this.gliding = true;
-        this.sprite.body.maxVelocity.y = 80;
+        this.sprite.body.maxVelocity.y = 80 * this.sprite.scale.y;
         this.sprite.animations.stop();
         if (this.sprite.body.velocity.x > 0) {
           this.sprite.frame = 1;
@@ -64,7 +64,7 @@ var Monk = {
       if (!this.gliding) {
         this.gliding = true;
         this.sprite.body.allowGravity = false;
-        this.sprite.body.acceleration.y = -500;
+        this.sprite.body.acceleration.y = -500 * this.sprite.scale.y;
         this.sprite.animations.stop();
         if (this.sprite.body.velocity.x > 0) {
           this.sprite.frame = 5;
@@ -82,9 +82,9 @@ var Monk = {
     && !(this.wallJumpL && this.jumpRelease && this.cursors.right.isDown)
     && !(this.wallJumpR && this.jumpRelease && this.cursors.left.isDown) ) {
       if (this.sprite.body.velocity.y > 0
-      && this.sprite.body.velocity.y < 400 && this.jumpRelease) {
+      && this.sprite.body.velocity.y < 400 * this.sprite.scale.y && this.jumpRelease) {
         this.glide(1);
-      } else if (this.sprite.body.velocity.y > 400 && this.jumpRelease) {
+      } else if (this.sprite.body.velocity.y > 400 * this.sprite.scale.y && this.jumpRelease) {
         this.glide(2);
       }
     }

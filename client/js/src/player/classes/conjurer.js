@@ -47,21 +47,21 @@ var Conjurer = {
       Player.switchToNormal();
       Player.slashAni = true;
       Player.sprite.animations.stop();
-      Player.sprite.body.maxVelocity.y = 1000;
+      Player.sprite.body.maxVelocity.y = 1000 * Player.sprite.scale.y;
       if (Player.Facing === 3 || Player.Facing === 7 ) {
         Player.sprite.animations.play('conjurer_jump_right');
         Player.status = 144;
-        Player.sprite.body.velocity.y = -900;
+        Player.sprite.body.velocity.y = -900 * Player.sprite.scale.y;
       } else if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
         Player.sprite.animations.play('conjurer_jump_right');
         Player.status = 145;
-        Player.sprite.body.velocity.y = -400;
-        Player.sprite.body.velocity.x = 800;
+        Player.sprite.body.velocity.y = -400 * Player.sprite.scale.y;
+        Player.sprite.body.velocity.x = 800 * Player.sprite.scale.x;
       } else {
         Player.sprite.animations.play('conjurer_jump_left');
         Player.status = 144;
-        Player.sprite.body.velocity.y = -400;
-        Player.sprite.body.velocity.x = -800;
+        Player.sprite.body.velocity.y = -400 * Player.sprite.scale.y;
+        Player.sprite.body.velocity.x = -800 * Player.sprite.scale.x;
       }
     }, this);
     Player.specialOnCd = true;
@@ -70,7 +70,7 @@ var Conjurer = {
     }, this);
     Player.game.time.events.add(1000, function() {
       Player.slashAni = false;
-      Player.sprite.body.maxVelocity.y = 500;
+      Player.sprite.body.maxVelocity.y = 500 * Player.sprite.scale.y;
     }, this);
   },
   shoot:function shoot(Player) {
@@ -91,32 +91,34 @@ var Conjurer = {
       Player.switchToNormal();
       Player.slashAni = false;
       Player.sprite.frame = 0;
+      console.log(Player.sprite.x + ' ' + Player.sprite.y);
       if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
       Player.bullet = Player.bullets.create(
         Player.sprite.x,
-        Player.sprite.y - 11,
+        Player.sprite.y - 11 * Player.sprite.scale.y,
         'magic_missile'
       );
       } else {
       Player.bullet = Player.bullets.create(
-        Player.sprite.x - 32,
-        Player.sprite.y - 11,
+        Player.sprite.x - 32 * Player.sprite.scale.x,
+        Player.sprite.y - 11 * Player.sprite.scale.y,
         'magic_missile'
       );
       }
       Player.game.physics.enable(Player.bullet, Phaser.Physics.ARCADE);
+      Player.bullet.scale.set(Player.sprite.scale.x);
       Player.bullet.outOfBoundsKill = true;
-      Player.bullet.body.setSize(15,6,8,12);
+      Player.bullet.body.setSize(15 * Player.sprite.scale.x, 6 * Player.sprite.scale.y, 8 * Player.sprite.scale.x, 12 * Player.sprite.scale.y);
       Player.bullet.body.allowGravity = false;
       Player.bullet.body.velocity.y = 0;
       Player.bullet.animations.add('fly_left', [0,1,2,3], 12, true);
       Player.bullet.animations.add('fly_right', [4,5,6,7], 12, true);      
       Player.bullet.animations.add('explode', [8,9,10,11,12], 12, true);      
       if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
-        Player.bullet.body.velocity.x = 400;
+        Player.bullet.body.velocity.x = 400 * Player.sprite.scale.x;
         Player.bullet.animations.play('fly_right');
       } else if (Player.Facing === 4 || Player.Facing === 5 || Player.Facing === 6) {
-        Player.bullet.body.velocity.x = -400;
+        Player.bullet.body.velocity.x = -400 * Player.sprite.scale.y;
         Player.bullet.animations.play('fly_left');
       }
     }, this);

@@ -62,28 +62,29 @@ var Icemage = {
       if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
       Player.bullet = Player.bullets.create(
         Player.sprite.x,
-        Player.sprite.y - 28  * Player.sprite.scale.y,
+        Player.sprite.y - 28 * Player.sprite.scale.y,
         'icelance'
       );
       } else {
       Player.bullet = Player.bullets.create(
-        Player.sprite.x - 63  * Player.sprite.scale.x,
-        Player.sprite.y - 28  * Player.sprite.scale.y,
+        Player.sprite.x - 63 * Player.sprite.scale.x,
+        Player.sprite.y - 28 * Player.sprite.scale.y,
         'icelance'
       );
       }
       Player.game.physics.enable(Player.bullet, Phaser.Physics.ARCADE);
+      Player.bullet.scale.set(Player.sprite.scale.x);
       Player.bullet.outOfBoundsKill = true;
-      Player.bullet.body.setSize(24,6,19,28);
+      Player.bullet.body.setSize(24 * Player.sprite.scale.x, 6 * Player.sprite.scale.y, 19 * Player.sprite.scale.x, 28 * Player.sprite.scale.y);
       Player.bullet.body.allowGravity = false;
       Player.bullet.body.velocity.y = 0;
       Player.bullet.animations.add('fly_right', [0,1,2,3,4,5], 12, true);
       Player.bullet.animations.add('fly_left', [6,7,8,9,10,11], 12, true);
       if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
-        Player.bullet.body.velocity.x = 600;
+        Player.bullet.body.velocity.x = 600 * Player.sprite.scale.x;
         Player.bullet.animations.play('fly_right');
       } else if (Player.Facing === 4 || Player.Facing === 5 || Player.Facing === 6) {
-        Player.bullet.body.velocity.x = -600;
+        Player.bullet.body.velocity.x = -600 * Player.sprite.scale.x;
         Player.bullet.animations.play('fly_left');
       }
     });
@@ -120,7 +121,7 @@ var Icemage = {
     this.flyTimer = this.game.time.events.add(this.flyingDuration,function(){this.switchToNormal();this.flyCooldown();},this);
   },
   flying: function flying() {
-    var flyacc = 500;
+    var flyacc = 500 * this.sprite.scale.x;
     var velX = this.sprite.body.velocity.x;
     var velY = this.sprite.body.velocity.y;
     //Flying UP/RIGHT
