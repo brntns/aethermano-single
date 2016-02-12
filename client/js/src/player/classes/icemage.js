@@ -62,13 +62,13 @@ var Icemage = {
       if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
       Player.bullet = Player.bullets.create(
         Player.sprite.x,
-        Player.sprite.y - 28,
+        Player.sprite.y - 28  * Player.sprite.scale.y,
         'icelance'
       );
       } else {
       Player.bullet = Player.bullets.create(
-        Player.sprite.x - 63,
-        Player.sprite.y - 28,
+        Player.sprite.x - 63  * Player.sprite.scale.x,
+        Player.sprite.y - 28  * Player.sprite.scale.y,
         'icelance'
       );
       }

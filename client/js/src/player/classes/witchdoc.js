@@ -56,15 +56,15 @@ var Witchdoc = {
       Player.sprite.frame = 0;
       if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
       Player.bullet = Player.bullets.create(
-        Player.sprite.x + 2,
-        Player.sprite.y - 21,
+        Player.sprite.x + 2  * Player.sprite.scale.x,
+        Player.sprite.y - 21  * Player.sprite.scale.y,
         'voodoo_skull'
       );
       //console.log('Created Fireball');
       } else {
-      Player.bullet = Player.bullets.create(
-        Player.sprite.x - 35,
-        Player.sprite.y - 21,
+      Player.bullet = Player.bullets.create (
+        Player.sprite.x - 35  * Player.sprite.scale.x,
+        Player.sprite.y - 21  * Player.sprite.scale.y,
         'voodoo_skull'
       );
       //console.log('Created Fireball');

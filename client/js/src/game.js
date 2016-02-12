@@ -159,8 +159,8 @@ var gameBase = {
 			//this.game.physics.arcade.overlap(this.player.sprite,this.monsterGroup, this.enemyCollisionHandler, null, this);
 			this.game.physics.arcade.overlap(this.player.hitbox1, this.monsterGroup, this.enemySlashingHandler, null, this);
 			this.game.physics.arcade.overlap(this.player.hitbox2, this.monsterGroup, this.enemySlashingHandler, null, this);
-			this.game.physics.arcade.overlap(this.player.bullets, this.monsterGroup, this.enemyBulletHandler, null, this);
-			this.game.physics.arcade.overlap(this.player.bullets, this.map.collisionLayer, this.wallHit, null, this);
+			// this.game.physics.arcade.overlap(this.player.bullets, this.monsterGroup, this.enemyBulletHandler, null, this);
+			// this.game.physics.arcade.overlap(this.player.bullets, this.map.collisionLayer, this.wallHit, null, this);
 			this.game.physics.arcade.overlap(this.player.sprite, this.locationGroup, this.changeLevel, null, this);
 			if (this.game.physics.arcade.overlap(this.player.sprite, this.ladders)) {
 				this.player.onLadder = true;
@@ -206,9 +206,9 @@ var gameBase = {
 					// this.client.spawnVine(this.player.sprite.x,this.player.sprite.y,this.player.ladderDirection);
 				}
 			}
-			if (this.player.detonate) {
-				this.detonateFireball(this.player.bullet);
-			}
+			// if (this.player.detonate) {
+			// 	this.detonateFireball(this.player.bullet);
+			// }
 			if (this.player.teleporting !== 0) {
 				this.teleportPlayer();
 			}
@@ -602,6 +602,7 @@ var gameBase = {
 		this.player.climbboxUL.scale.set(scale);
 		this.player.climbboxDR.scale.set(scale);
 		this.player.climbboxDL.scale.set(scale);
+		this.player.bullets.scale.set(scale);
     this.monsterGroup.scale.set(scale);
     this.ladders.scale.set(scale);
     this.locationGroup.scale.set(scale);
