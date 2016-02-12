@@ -85,10 +85,10 @@ var Explorer = {
   },
   climbingMask: function climbingMask() {
     this.climbboxUR.x = this.sprite.x;
-    this.climbboxUR.y = this.sprite.y - 19;
-    this.climbboxUL.x = this.sprite.x - 19;
-    this.climbboxUL.y = this.sprite.y - 19;
-    this.climbboxDL.x = this.sprite.x- 19;
+    this.climbboxUR.y = this.sprite.y - 19 * this.sprite.scale.x;
+    this.climbboxUL.x = this.sprite.x - 19 * this.sprite.scale.x;
+    this.climbboxUL.y = this.sprite.y - 19 * this.sprite.scale.x;
+    this.climbboxDL.x = this.sprite.x - 19 * this.sprite.scale.x;
     this.climbboxDL.y = this.sprite.y;
     this.climbboxDR.x = this.sprite.x;
     this.climbboxDR.y = this.sprite.y;
@@ -102,59 +102,55 @@ var Explorer = {
     this.sprite.body.allowGravity = false;
   },
   climb: function climb() {
-    var climbspeed = 125;
-    var overhangspeed = 85;
-    var shimmyspeed = 175;
-    var shaftspeed = 275;
     //Shaft
     if (this.climbBoxUR && this.climbBoxUL && this.climbBoxDL && this.climbBoxDR) {
-      this.climbing(shaftspeed, shaftspeed, shaftspeed);
+      this.climbing(this.shaftspeed, this.shaftspeed, this.shaftspeed);
       this.climbingAnimation(0, this.H, this.V);
       this.ladderDirection = 1;
     } else {
     //Corner Right
       if (this.climbBoxUR && this.climbBoxUL && this.climbBoxDR) {
-        this.climbing(overhangspeed, climbspeed, shimmyspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.shimmyspeed);
         this.climbingAnimation(1, this.H, this.V);
         this.ladderDirection = 2;
     //Corner Left
       } else if (this.climbBoxUR && this.climbBoxUL && this.climbBoxDL) {
-        this.climbing(overhangspeed, climbspeed, shimmyspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.shimmyspeed);
         this.climbingAnimation(1, this.H, this.V);
         this.ladderDirection = 0;
     //Overhang
       } else if (this.climbBoxUR && this.climbBoxUL) {
-        this.climbing(overhangspeed, climbspeed, shimmyspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.shimmyspeed);
         this.climbingAnimation(1, this.H, this.V);
         this.ladderDirection = 1;
     //Wall to the Right
       } else if (this.climbBoxUR && this.climbBoxDR) {
-        this.climbing(overhangspeed, climbspeed, shimmyspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.shimmyspeed);
         this.climbingAnimation(2, this.H, this.V);
         this.ladderDirection = 2;
     //Wall to the Left
       } else if (this.climbBoxUL && this.climbBoxDL) {
-        this.climbing(overhangspeed, climbspeed, shimmyspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.shimmyspeed);
         this.climbingAnimation(3, this.H, this.V);
         this.ladderDirection = 0;
     //Overhang End Right
       } else if (this.climbBoxUL) {
-        this.climbing(overhangspeed, climbspeed, overhangspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.overhangspeed);
         this.climbingAnimation(4, this.H, this.V);
         this.ladderDirection = 3;
     //Overhang End Left
       } else if (this.climbBoxUR) {
-        this.climbing(overhangspeed, climbspeed, overhangspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.overhangspeed);
         this.climbingAnimation(5, this.H, this.V);
         this.ladderDirection = 3;
     //Wall Top Right
       } else if (this.climbBoxDR) {
-        this.climbing(overhangspeed, climbspeed, overhangspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.overhangspeed);
         this.climbingAnimation(2, this.H, this.V);
         this.ladderDirection = 2;
     //Wall Top Left
       } else if (this.climbBoxDL) {
-        this.climbing(overhangspeed, climbspeed, overhangspeed);
+        this.climbing(this.overhangspeed, this.climbspeed, this.overhangspeed);
         this.climbingAnimation(3, this.H, this.V);
         this.ladderDirection = 0;
       }

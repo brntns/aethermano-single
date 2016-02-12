@@ -1,12 +1,12 @@
 var climb = {
 
   climbCheck: function climbCheck() {
-    var coordsX = Math.floor((this.player.sprite.x - 15) / (16 * this.Scale));
-    var coordsY = Math.floor((this.player.sprite.y - 15) / (16 * this.Scale));
+    var coordsX = Math.floor((this.player.sprite.x - 15 * this.Scale) / (16 * this.Scale));
+    var coordsY = Math.floor((this.player.sprite.y - 15 * this.Scale) / (16 * this.Scale));
     var limitX = this.map.currentMap.layers[0].width - 3;
     var limitY = this.map.currentMap.layers[0].height - 3;
     // console.log(this.map.collisionLayer.layer.data[0]);
-    // console.log(this.Scale);
+    // console.log(this.player.climbBoxUR + ' ' + this.player.climbBoxUL + ' ' + this.player.climbBoxDL + ' ' + this.player.climbBoxDR);
     // console.log('x: '+coordsX+'  y: '+coordsY+'  limitX: '+limitX+'  limitY: '+limitY);
     if (coordsX < limitX && coordsY > 3) {
       this.climbCheckUR(this.map.collisionLayer, coordsX, coordsY);
@@ -88,7 +88,7 @@ var climb = {
   },
   checkOverlap: function checkOverlap(sprite, tile) {
     var boundsA = new Phaser.Rectangle(sprite.x, sprite.y, sprite.width, sprite.height);
-    var boundsB = new Phaser.Rectangle(tile.x*16, tile.y*16, tile.width, tile.height);
+    var boundsB = new Phaser.Rectangle(tile.x*16*this.Scale, tile.y*16*this.Scale, tile.width, tile.height);
     //console.log('boundsA:'+boundsA+'  boundsB:'+boundsB);
     return Phaser.Rectangle.intersects(boundsA, boundsB);
   }

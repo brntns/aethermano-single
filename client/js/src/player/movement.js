@@ -484,6 +484,11 @@ var movement = {
     this.ladderUpspeed = 150 * scale;
     this.ladderDownspeed = 150 * scale;
     this.ladderSidespeed = 75 * scale;
+    //Climbing
+    this.climbspeed = 125 * scale;
+    this.overhangspeed = 85 * scale;
+    this.shimmyspeed = 175 * scale;
+    this.shaftspeed = 275 * scale;
 
     if (this.sprite !== null && this.sprite !== undefined) {
       this.sprite.body.maxVelocity.y = 500 * scale;
