@@ -83,13 +83,11 @@ var gameBase = {
     this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
 
 
-    // console.log(this.camera);
-    // this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
-    // this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
-    // this.lightSprite.fixedToCamera = true;
-    // this.lights.add(this.lightSprite);
-    this.zoomTo(1,200);
-
+    console.log(this.camera);
+    this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
+    this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+    this.lightSprite.fixedToCamera = true;
+    this.lights.add(this.lightSprite);
 	},
 	update: function update() {
 		// Menu
@@ -150,8 +148,8 @@ var gameBase = {
 		// }
 		// Collision
 		if (this.player !== null) {
-			// this.updateShadowTexture();
-			// this.lightSprite.bringToTop();
+			this.updateShadowTexture();
+			this.lightSprite.bringToTop();
 			//console.log(this.player.status);
 			// make player collide
 			this.game.physics.arcade.collide(this.player.sprite, this.map.collisionLayer);
@@ -609,11 +607,12 @@ var gameBase = {
     this.locationGroup.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
-    // if (this.lights !== null) {
-    //   this.lightSprite.scale.set(scale);
 
-    //   this.updateShadowTexture();
-    // }
+    if (this.lights !== null) {
+      this.lightSprite.scale.set(scale);
+      this.lightradius = 300;
+      this.updateShadowTexture();
+    }
 
     this.map.collisionLayer.resizeWorld();
     console.log('zooming');
