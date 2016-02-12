@@ -77,7 +77,7 @@ var gameBase = {
     this.locationGroup  = this.game.add.group();
 		this.items = new Items(this);
     this.items.create(this.world.maps[0].locations);
-		this.zoomTo(1,200);
+
 
     this.lights = this.game.add.group();
     this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
@@ -608,9 +608,12 @@ var gameBase = {
     this.locationGroup.scale.set(scale);
 		this.map.collisionLayer.setScale(scale);
 		this.player.updateScale(scale);
-    if (this.lights !== null) {
-      this.lightSprite.scale.set(scale);
-      this.lightradius = 300;
+
+    if (this.lights !== null && scale > 1) {
+      this.lightradius =  this.lightradius*scale;
+      this.updateShadowTexture();
+    } else if (this.lights !== null && scale === 1){
+      this.lightradius =  175;
       this.updateShadowTexture();
     }
 
