@@ -1,9 +1,9 @@
 var vines = {
   vineSpawn: function vineSpawn(x, y, n) {
-    var X = Math.floor((x-14)/16);
-    var Y = Math.floor((y-15)/16);
-    var maxX = this.map.maps[0].layers[0].height*16;
-    var maxY = this.map.maps[0].layers[0].width*16;
+    var X = Math.floor((x - 14 * this.Scale) / (16 * this.Scale));
+    var Y = Math.floor((y - 14 * this.Scale) / (16 * this.Scale));
+    var maxX = this.map.currentMap.layers[0].height * 16 * this.Scale;
+    var maxY = this.map.currentMap.layers[0].width * 16 * this.Scale;
     var alternate = 0;
     var ladderMaxlength = 20;
     loop:
@@ -68,10 +68,10 @@ var vines = {
     return value;
   },
   ladderSpawn: function ladderSpawn(x, y, n) {
-    var X = Math.floor((x-14)/16);
-    var Y = Math.floor((y-14)/16);
-    var maxX = this.map.maps[0].layers[0].height*16;
-    var maxY = this.map.maps[0].layers[0].width*16;
+    var X = Math.floor((x - 14 * this.Scale) / (16 * this.Scale));
+    var Y = Math.floor((y - 14 * this.Scale) / (16 * this.Scale));
+    var maxX = this.map.currentMap.layers[0].height * 16 * this.Scale;
+    var maxY = this.map.currentMap.layers[0].width * 16 * this.Scale;
     var ladderMaxlength = 15;
     //console.log(this.map.collisionLayer.layer.data);
     loop:
