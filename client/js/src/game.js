@@ -77,7 +77,7 @@ var gameBase = {
     this.locationGroup  = this.game.add.group();
 		this.items = new Items(this);
     this.items.create(this.world.maps[0].locations);
-		this.zoomTo(1,200);
+
 
     this.lights = this.game.add.group();
     this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
@@ -88,6 +88,8 @@ var gameBase = {
     // this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
     // this.lightSprite.fixedToCamera = true;
     // this.lights.add(this.lightSprite);
+    this.zoomTo(1,200);
+
 	},
 	update: function update() {
 		// Menu
@@ -609,7 +611,7 @@ var gameBase = {
 		this.player.updateScale(scale);
     // if (this.lights !== null) {
     //   this.lightSprite.scale.set(scale);
-    //   this.lightradius = 300;
+
     //   this.updateShadowTexture();
     // }
 
