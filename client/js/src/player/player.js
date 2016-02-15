@@ -82,7 +82,6 @@ function Player(game,map) {
     this.shrunk = false;
     this.specialOnCd = false;
     this.specialCd = 1000;
-
     this.scale = 1;
     if (this.sprite !== null && this.sprite !== undefined) {this.scale = this.sprite.scale.x}
     this.updateScale(this.scale)

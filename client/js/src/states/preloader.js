@@ -8,8 +8,11 @@ function Preloader() {
 Preloader.prototype = {
 
   preload: function () {
+    //sound
+    this.game.load.audio('running', 'assets/run.wav');
+    this.game.load.audio('ladder', 'assets/ladder.wav');
     // misc
-    this.game.load.image('tiles-1','assets/tiles-1.png');
+    this.game.load.image('tiles-1','assets/tiles-3.png');
     this.game.load.image('overlay', 'assets/overlay.png');
     this.game.load.image('huts', 'assets/huts.png');
     this.game.load.image('item', 'assets/item.png');
@@ -49,7 +52,7 @@ Preloader.prototype = {
     // attacks
     this.game.load.spritesheet('monk_hitbox', 'assets/player/monk_hitbox.png', 29, 29);
     // classes
-    this.game.load.spritesheet('explorer', 'assets/player/explorer.png', 87, 87);
+    this.game.load.spritesheet('explorer', 'assets/player/explorer-b.png', 87, 87);
     this.game.load.spritesheet('wizard', 'assets/player/wizard.png', 87, 87);
     this.game.load.spritesheet('monk', 'assets/player/monk.png', 87, 87);
     this.game.load.spritesheet('tron', 'assets/player/tron.png', 87,87);

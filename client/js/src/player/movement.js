@@ -27,6 +27,7 @@ var movement = {
           //Running
           this.directions();
           this.basicRunning();
+
           //Jumping
           this.jumpCond();
           if (this.letterSpace.isDown) {
@@ -51,6 +52,16 @@ var movement = {
         }
         //Class Movement
         this.classUpdate();
+      }
+      //running sound
+      // console.log(this.status);
+      if((this.status === 3 || this.status === 2) && this.running.isPlaying === false){
+        this.running.play();
+        console.log('running');
+      }
+      if((this.status === 7 || this.status === 9) && this.ladder.isPlaying === false){
+        this.ladder.play();
+        console.log('climbing ladder');
       }
     // }
   },

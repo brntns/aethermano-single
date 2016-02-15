@@ -66,6 +66,7 @@ var gameBase = {
 		this.map.create(this.world.maps);
 		// this.map.currentMap = this.map.maps[0];
 
+
     // this.menu = new Menu(this);
     // this.menu.create();
 
@@ -88,6 +89,7 @@ var gameBase = {
     this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
     this.lightSprite.fixedToCamera = true;
     this.lights.add(this.lightSprite);
+    this.zoomTo(3,200);
 	},
 	update: function update() {
 		// Menu
@@ -610,7 +612,7 @@ var gameBase = {
 		this.player.updateScale(scale);
 
     if (this.lights !== null && scale > 1) {
-      this.lightradius =  this.lightradius*scale;
+      this.lightradius =  this.lightradius*(scale/2);
       this.updateShadowTexture();
     } else if (this.lights !== null && scale === 1){
       this.lightradius =  175;
