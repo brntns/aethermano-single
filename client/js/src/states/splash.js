@@ -15,8 +15,9 @@ Splash.prototype = {
     this.logo.anchor.set(0.5, 0.5);
     this.logo.scale.set(0.75);
     this.logo.alpha = 0;
+    this.add.sprite(0, 0, 'mapImage');
 
-    this.createTween();
+    // this.createTween();
   },
   createTween() {
       var logoTween = this.add.tween(this.logo).to({alpha: 1}, 1000,

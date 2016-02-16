@@ -1,14 +1,20 @@
-
+var gameWorld = require('../world/world.js')
+ PNG = require('pngjs').PNG;
+this.world = null;
+var colormap = require('../colormap');
+var png = null;
+var ready = false;
 'use strict';
 
 function Preloader() {
-  this.ready = false;
 }
 
 Preloader.prototype = {
 
   preload: function () {
     // misc
+    this.world = new gameWorld.World();
+    this.world.create();
     this.game.load.image('tiles-1','assets/tiles-1.png');
     this.game.load.image('overlay', 'assets/overlay.png');
     this.game.load.image('huts', 'assets/huts.png');
@@ -67,13 +73,60 @@ Preloader.prototype = {
     this.game.load.spritesheet('beholder', 'assets/monster/beholder.png', 64, 64);
     this.game.load.spritesheet('beholder_laser', 'assets/monster/beholder_laser.png', 32, 16);
 
-    this.ready = true;
+
+    this.writeImg();
+  },
+  writeImg : function writeImg() {
+    var world = this.world;
+    var game = this.game;
+    var img = new PNG({
+      filterType: 4,
+      width: this.world.maps[0].map[0].layers[0].width,
+      height: this.world.maps[0].map[0].layers[0].height
+    });
+    for (var y = 0; y < img.height; y++) {
+      for (var x = 0; x < img.width; x++) {
+        var idx = (img.width * y + x) << 2;
+        // invert color
+        var colourN = 0;
+        if (this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y] < 69){
+          colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y];
+          img.data[idx] = colormap[colourN].r;
+          img.data[idx+1] = colormap[colourN].g;
+          img.data[idx+2] = colormap[colourN].b;
+          // and reduce opacity
+          img.data[idx+3] = 255;
+        } else {
+          colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y] - 34;
+          img.data[idx] = colormap[colourN].r;
+          img.data[idx+1] = colormap[colourN].g;
+          img.data[idx+2] = colormap[colourN].b;
+          // and reduce opacity
+          img.data[idx+3] = 255;
+        }
+      }
+    }
+    img.pack();
+    var chunks = [];
+    img.on('data', function(chunk) {
+      chunks.push(chunk);
+    });
+    img.on('end', function() {
+      var result = Buffer.concat(chunks);
+      png = result.toString('base64');
+      ready = true;
+    });
+  },
+  loadImage:function loadImage(result){
+    png = 'data:image/jpeg;base64,'+png;
+    var data = new Image();
+    data.src = png;
+    this.game.cache.addImage('mapImage', png, data);
   },
   update: function () {
-    if (!!this.ready) {
+    if (ready) {
+      this.loadImage();
       this.game.state.start('splash');
-
-
     }
   }
 };

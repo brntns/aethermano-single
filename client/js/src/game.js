@@ -2,7 +2,6 @@ var Items = require('./items/items');
 var Player = require('./player/player');
 var Map = require('./map/map');
 var Enemy = require('./client/enemy');
-// var Client = require('./client/client');
 var vines = require('./handlers/vines');
 var climbchecks = require('./handlers/climb');
 var teleport = require('./handlers/teleport');
@@ -10,9 +9,6 @@ var attackhandler = require('./handlers/attackhandler');
 var playerchecks = require('./handlers/playerchecks');
 var gameWorld = require('./world/world.js')
 var Menu = require('./client/menu/menu');
-var fs = require('fs'),
-PNG = require('pngjs').PNG;
-var colormap = require('./colormap');
 
 function Game() {
 	this.player = null;
@@ -90,48 +86,6 @@ var gameBase = {
     this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
     this.lightSprite.fixedToCamera = true;
     this.lights.add(this.lightSprite);
-
-		var world = this.world;
-		var game = this.game;
-		console.log(world.maps[0].map[0].layers[0].width);
-
-		function writeImg() {
-  		var img = new PNG({
-    		filterType: 4,
-    		width: world.maps[0].map[0].layers[0].width,
-   		 	height: world.maps[0].map[0].layers[0].height
-  		});
-  		for (var y = 0; y < img.height; y++) {
-    		for (var x = 0; x < img.width; x++) {
-      		var idx = (img.width * y + x) << 2;
-      		// invert color
-      		var colourN = 0;
-      		if (world.maps[0].map[0].layers[0].data[x+world.maps[0].map[0].layers[0].width*y] < 69){
-      			colourN = world.maps[0].map[0].layers[0].data[x+world.maps[0].map[0].layers[0].width*y];
-        		img.data[idx] = colormap[colourN].r;
-        		img.data[idx+1] = colormap[colourN].g;
-        		img.data[idx+2] = colormap[colourN].b;
-        		// and reduce opacity
-        		img.data[idx+3] = 255;
-      		} else {
-      			colourN = world.maps[0].map[0].layers[0].data[x+world.maps[0].map[0].layers[0].width*y] - 34;
-        		img.data[idx] = colormap[colourN].r;
-        		img.data[idx+1] = colormap[colourN].g;
-        		img.data[idx+2] = colormap[colourN].b;
-        		// and reduce opacity
-        		img.data[idx+3] = 255;
-      		}
-    		}
-  		}
-  		console.log(img);
-  		//img.pack();
-  		game.load.image('mapImage',img);
-  		game.add.sprite(0, 0, 'mapImage');
-  		//img.pack().pipe(fs.createWriteStream('out.png'));
-  		//console.log('mapWidth: '+world.maps[0].map[0].layers[0].width);
-  		//console.log('mapHeight: '+world.maps[0].map[0].layers[0].height);
-		}
-		writeImg();
 	},
 	update: function update() {
 		// Menu
