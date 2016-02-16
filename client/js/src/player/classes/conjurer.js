@@ -111,8 +111,8 @@ var Conjurer = {
       Player.bullet.body.setSize(15 * Player.sprite.scale.x, 6 * Player.sprite.scale.y, 8 * Player.sprite.scale.x, 12 * Player.sprite.scale.y);
       Player.bullet.body.allowGravity = false;
       Player.bullet.body.velocity.y = 0;
-      Player.bullet.animations.add('fly_left', [0,1,2,3], 12, true);
-      Player.bullet.animations.add('fly_right', [4,5,6,7], 12, true);      
+      Player.bullet.animations.add('fly_left', [4,5,6,7], 24, true);
+      Player.bullet.animations.add('fly_right', [0,1,2,3], 24, true);      
       Player.bullet.animations.add('explode', [8,9,10,11,12], 12, true);      
       if (Player.Facing === 1 || Player.Facing === 2 || Player.Facing === 8) {
         Player.bullet.body.velocity.x = 400 * Player.sprite.scale.x;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="49" height="29" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="cloud_terrain" tilewidth="16" tileheight="16">
+  <image source="../../../../piskel/cloud_terrain.png" width="176" height="16"/>
+ </tileset>
+ <tileset firstgid="12" name="grassy_terrain" tilewidth="16" tileheight="16">
+  <image source="../../../../piskel/grassy_terrain.png" width="192" height="16"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="49" height="29">
+  <data encoding="base64" compression="zlib">
+   eJztz0sKwCAMRVEXYMV+1P3vtBESeBNnBQe9By4GcRBTAgAAAIDvVStbxTq87GeROd7Mzi2brl1W8x5vzl2K+5jvLZuuDU/3HnI2Sf8FAAD+6wUSIQMS
+  </data>
+ </layer>
+</map>
