@@ -128,19 +128,22 @@ exports.Grassy.prototype = {
   makeHorizon: function makeHorizon(x, y, width, height, mapWidth, mapHeight) {
     var Width = 0;
     var Height = 0;
+    var X = 0;
     var Hills = this.randomSpacing(width, 200, 100, 50, 50);
     for (var i = 0; i < Hills.length; i++) {
       X = Hills[i];
       if (i == 0) {
         Width = X + this.Random(0, 2*X);
+        //X = X - Width;
       } else if (i == Hills.length - 1) {
         Width = width - X + this.Random(0, 2*(width - X));
       } else {
         Width = (Hills[i+1] - X);
       }
-      Height = Math.sqrt(Width);
-      this.makeHill(x+X,y+Math.floor(height/2),Width,Height);
+      Height = Math.floor(Width/this.Random(4, 8));
+      this.makeHill(x + X, 250, Width, Height, mapWidth, mapHeight);
     }
+    console.log(Hills);
   },
   makeHill: function makeHill(x, y, width, height, mapWidth, mapHeight) {
     var hill = {};
@@ -152,21 +155,75 @@ exports.Grassy.prototype = {
     var X = [];
     var L = 0;
     var R = 0;
-    Length[0] = this.Random(1, Math.floor(width/2));
+    Length[0] = this.Random(1, Math.floor(width/10));
     X[0] = this.Random(height, width - Length[0] - height);
-    for (var i = 1; i < Height) {    
-      L = this.Random(height - i, X[i - 1] - 1);
-      R = this.Random(X[i - 1] + Length[i - 1]);
+    //this.makeTerrain(X[0] + x, y - height, Length[0], 1, mapWidth, mapHeight, 1);
+    for (var i = 1; i < height; i++) {    
+      L = this.Random(2 * height - 2 * i, X[i - 1] - 1);
+      R = this.Random(X[i - 1] + Length[i - 1], width - 2 * height + 2 * i);
+      console.log(y + ' ' + height);
       Length[i] = R - L;
       X[i] = L;
-      this.makeTerrain(X[i], y + i, Length[i], 1, mapWidth, mapHeight, 1);
+      this.makeTerrain(X[i] + x, y - height + i, Length[i], 1, mapWidth, mapHeight, 1);
+      console.log('step ' + X[i] + ' ' + Length[i]);
     }
+    console.log('Hill made ' + x + ' ' + y + ' ' + width + ' ' + height);
   },
   outcroppings: function outcroppings() {
 
   },
   pits: function pits() {
 
+  },
+  generate: function generate(mapWidth, mapHeight, type) {
+    this.mapSize = mapWidth * mapHeight;
+    //Clear Terrain
+    for (var i = 0; i < this.mapSize; i++) {
+      this.map[i] = 0;
+    }
+    console.log('DONESIES CLEARING');
+    this.makeHorizon(0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
+    this.makeTerrain(0, 250, mapWidth, 50, mapWidth, mapHeight, 1);
+    this.setMap(mapWidth, mapHeight,this.maps.length + 1,'level');
+  },
+  setMap: function setMap(mapWidth, mapHeight, id, type){
+    this.mapData = {
+      "id": id,
+      "type":type,
+      "height":16,
+      "layers":[{
+        "data":[],
+        "height":mapHeight,
+        "name":"Tile Layer 1",
+        "opacity":1,
+        "type":"tilelayer",
+        "visible":true,
+        "width":mapWidth,
+        "x":2,
+        "y":2
+      }],
+      "orientation":"orthogonal",
+      "properties":{},
+      "tileheight":16,
+      "tilesets":[{
+        "firstgid":1,
+        "image":"tiles-1.png",
+        "imageheight":16,
+        "imagewidth":256,
+        "margin":0,
+        "name":"tiles-1",
+        "properties":{},
+        "spacing":0,
+        "tileheight":16,
+        "tilewidth":16
+      }],
+      "tilewidth":16,
+      "version":1,
+      "width":16
+    };
+    this.mapData.layers[0].data = this.map;
+    this.locationSprites.push(this.locations);
+    console.log(this.map);
   }
 };
 
