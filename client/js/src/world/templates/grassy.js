@@ -228,6 +228,7 @@ exports.Grassy.prototype = {
   },
   writeTiles: function writeTiles(mapWidth, mapHeight) {
     var map = this.map;
+    var R = 0;
     var tiledMap = [];
     for (var i = 0; i < mapWidth; i++) {
       for (var j = 0; j < mapHeight; j++) {
@@ -241,14 +242,24 @@ exports.Grassy.prototype = {
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j+1)] !== 0) {
-            if (map[(i-1)+mapWidth*(j+1)] === 0
+            if (map[(i-1)+mapWidth*(j+1)] !== 0
+            && map[(i-1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j+1)] !== 0) {
+              //1 1 1
+              //1 1 1
+              //1 1 1
+              R = this.Random(0,5);
+              tiledMap[i+mapWidth*j] = 1 + R*40;
+            } else if (map[(i-1)+mapWidth*(j+1)] === 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j+1)] !== 0) {
               //1 1 1
               //1 1 1
               //0 1 1
-              tiledMap[i+mapWidth*j] = 1;
+              R = this.Random(0,5);
+              tiledMap[i+mapWidth*j] = 1 + R*40;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] === 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
@@ -256,7 +267,8 @@ exports.Grassy.prototype = {
               //0 1 1
               //1 1 1
               //1 1 1
-              tiledMap[i+mapWidth*j] = 1;
+              R = this.Random(0,5);
+              tiledMap[i+mapWidth*j] = 1 + R*40;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] === 0
@@ -264,7 +276,8 @@ exports.Grassy.prototype = {
               //1 1 0
               //1 1 1
               //1 1 1
-              tiledMap[i+mapWidth*j] = 1;
+              R = this.Random(0,5);
+              tiledMap[i+mapWidth*j] = 1 + R*40;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
@@ -272,47 +285,52 @@ exports.Grassy.prototype = {
               //1 1 1
               //1 1 1
               //1 1 0
-              tiledMap[i+mapWidth*j] = 1;
+              R = this.Random(0,5);
+              tiledMap[i+mapWidth*j] = 1 + R*40;
             }
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j+1)] !== 0) {
-              //x 1 x
-              //0 1 1
-              //x 1 x
-            tiledMap[i+mapWidth*j] = 3;
+            //x 1 x
+            //0 1 1
+            //x 1 x
+            R = this.Random(0,1);
+            tiledMap[i+mapWidth*j] = 3 + R*40;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j+1)] === 0) {
-              //x 1 x
-              //1 1 1
-              //x 0 x
-            tiledMap[i+mapWidth*j] = 1;
+            //x 1 x
+            //1 1 1
+            //x 0 x
+            R = this.Random(0,5);
+            tiledMap[i+mapWidth*j] = 1 + R*40;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] === 0
           && map[i+mapWidth*(j+1)] !== 0) {
-              //x 1 x
-              //1 1 0
-              //x 1 x
-            tiledMap[i+mapWidth*j] = 4;
+            //x 1 x
+            //1 1 0
+            //x 1 x
+            R = this.Random(0,1);
+            tiledMap[i+mapWidth*j] = 4 + R*40;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j+1)] !== 0) {
-              //x 0 x
-              //1 1 1
-              //x 1 x
-            tiledMap[i+mapWidth*j] = 1;
+            //x 0 x
+            //1 1 1
+            //x 1 x
+            R = this.Random(0,5);
+            tiledMap[i+mapWidth*j] = 1 + R*40;
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j+1)] !== 0) {
-              //x 0 x
-              //0 1 1
-              //x 1 x
+            //x 0 x
+            //0 1 1
+            //x 1 x
             tiledMap[i+mapWidth*j] = 11;
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] !== 0
