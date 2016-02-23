@@ -129,7 +129,7 @@ exports.Grassy.prototype = {
     var Width = 0;
     var Height = 0;
     var X = 0;
-    var Hills = this.randomSpacing(width, 200, 100, 50, 50);
+    var Hills = this.randomSpacing(width, 300, 100, 50, 50);
     for (var i = 0; i < Hills.length; i++) {
       X = Hills[i];
       if (i == 0) {
@@ -184,6 +184,7 @@ exports.Grassy.prototype = {
     console.log('DONESIES CLEARING');
     this.makeHorizon(0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
     this.makeTerrain(0, 250, mapWidth, 50, mapWidth, mapHeight, 1);
+    this.writeTiles(mapWidth, mapHeight);
     this.setMap(mapWidth, mapHeight,this.maps.length + 1,'level');
   },
   setMap: function setMap(mapWidth, mapHeight, id, type){
@@ -224,6 +225,229 @@ exports.Grassy.prototype = {
     this.mapData.layers[0].data = this.map;
     this.locationSprites.push(this.locations);
     console.log(this.map);
+  },
+  writeTiles: function writeTiles(mapWidth, mapHeight) {
+    var map = this.map;
+    var tiledMap = [];
+    for (var i = 0; i < mapWidth; i++) {
+      for (var j = 0; j < mapHeight; j++) {
+        tiledMap[i+mapWidth*j] = 0;
+      }
+    }
+    tiledMap = map;
+    for (var i = 1; i < mapWidth-1; i++) {
+      for (var j = 1; j < mapHeight-1; j++) {
+        if (map[i+mapWidth*j] !== 0) {
+          if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+            if (map[(i-1)+mapWidth*(j+1)] === 0
+            && map[(i-1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j+1)] !== 0) {
+              //1 1 1
+              //1 1 1
+              //0 1 1
+              tiledMap[i+mapWidth*j] = 1;
+            } else if (map[(i-1)+mapWidth*(j+1)] !== 0
+            && map[(i-1)+mapWidth*(j-1)] === 0
+            && map[(i+1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j+1)] !== 0) {
+              //0 1 1
+              //1 1 1
+              //1 1 1
+              tiledMap[i+mapWidth*j] = 1;
+            } else if (map[(i-1)+mapWidth*(j+1)] !== 0
+            && map[(i-1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j-1)] === 0
+            && map[(i+1)+mapWidth*(j+1)] !== 0) {
+              //1 1 0
+              //1 1 1
+              //1 1 1
+              tiledMap[i+mapWidth*j] = 1;
+            } else if (map[(i-1)+mapWidth*(j+1)] !== 0
+            && map[(i-1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j+1)] === 0) {
+              //1 1 1
+              //1 1 1
+              //1 1 0
+              tiledMap[i+mapWidth*j] = 1;
+            }
+          } else if (map[(i-1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 1 x
+              //0 1 1
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 4;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] === 0) {
+              //x 1 x
+              //1 1 1
+              //x 0 x
+            tiledMap[i+mapWidth*j] = 1;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 1 x
+              //1 1 0
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 5;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] === 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 0 x
+              //1 1 1
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 1;
+          } else if (map[(i-1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j-1)] === 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 0 x
+              //0 1 1
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 11;
+          } else if (map[(i-1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] === 0) {
+              //x 1 x
+              //0 1 1
+              //x 0 x
+            tiledMap[i+mapWidth*j] = 14;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j+1)] === 0) {
+              //x 1 x
+              //1 1 0
+              //x 0 x
+            tiledMap[i+mapWidth*j] = 13;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] === 0
+          && map[(i+1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 0 x
+              //1 1 0
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 12;
+          }
+        } else {
+          //no collision tiles here
+          if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+            if (map[(i-1)+mapWidth*(j+1)] === 0
+            && map[(i-1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j+1)] !== 0) {
+              //1 1 1
+              //1 0 1
+              //0 1 1
+              tiledMap[i+mapWidth*j] = 20;
+            } else if (map[(i-1)+mapWidth*(j+1)] !== 0
+            && map[(i-1)+mapWidth*(j-1)] === 0
+            && map[(i+1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j+1)] !== 0) {
+              //0 1 1
+              //1 0 1
+              //1 1 1
+              tiledMap[i+mapWidth*j] = 20;
+            } else if (map[(i-1)+mapWidth*(j+1)] !== 0
+            && map[(i-1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j-1)] === 0
+            && map[(i+1)+mapWidth*(j+1)] !== 0) {
+              //1 1 0
+              //1 0 1
+              //1 1 1
+              tiledMap[i+mapWidth*j] = 20;
+            } else if (map[(i-1)+mapWidth*(j+1)] !== 0
+            && map[(i-1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j-1)] !== 0
+            && map[(i+1)+mapWidth*(j+1)] === 0) {
+              //1 1 1
+              //1 0 1
+              //1 1 0
+              tiledMap[i+mapWidth*j] = 20;
+            }
+          } else if (map[(i-1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 1 x
+              //0 0 1
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 21;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] === 0) {
+              //x 1 x
+              //1 0 1
+              //x 0 x
+            tiledMap[i+mapWidth*j] = 22;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 1 x
+              //1 0 0
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 23;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] === 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 0 x
+              //1 0 1
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 24;
+          } else if (map[(i-1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j-1)] === 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 0 x
+              //0 0 1
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 27;
+          } else if (map[(i-1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j+1)] === 0) {
+              //x 1 x
+              //0 0 1
+              //x 0 x
+            tiledMap[i+mapWidth*j] = 28;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] !== 0
+          && map[(i+1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j+1)] === 0) {
+              //x 1 x
+              //1 0 0
+              //x 0 x
+            tiledMap[i+mapWidth*j] = 25;
+          } else if (map[(i-1)+mapWidth*j] !== 0
+          && map[i+mapWidth*(j-1)] === 0
+          && map[(i+1)+mapWidth*j] === 0
+          && map[i+mapWidth*(j+1)] !== 0) {
+              //x 0 x
+              //1 0 0
+              //x 1 x
+            tiledMap[i+mapWidth*j] = 26;
+          }
+        }
+      }
+    }
+    this.map = tiledMap;
   }
 };
 

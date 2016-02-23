@@ -3,7 +3,7 @@ var gameWorld = require('../world/world.js')
 this.world = null;
 var colormap = require('../colormap');
 var png = null;
-var ready = true;
+var ready = false;
 'use strict';
 
 function Preloader() {

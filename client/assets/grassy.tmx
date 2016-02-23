@@ -4,11 +4,11 @@
   <image source="../../../../piskel/cloud_terrain.png" width="176" height="16"/>
  </tileset>
  <tileset firstgid="12" name="grassy_terrain" tilewidth="16" tileheight="16">
-  <image source="../../../../piskel/grassy_terrain.png" width="256" height="16"/>
+  <image source="../../../../piskel/grassy_terrain.png" width="608" height="16"/>
  </tileset>
  <layer name="Tile Layer 1" width="49" height="29">
   <data encoding="base64" compression="zlib">
-   eJzt1U0KgCAQQGEPYNKfaXX/e6YwQ7Nxm0Lvg8eYtJhWOQcA+NrdewEAwPCyzNO9/406L7nT51PushvPXPKlUJokLzOYs75TW7ps2raWorRL9XyY9F7PW5dN25Jk905mRpP9LgAA8F8PSD0ELQ==
+   eJztk31rAjEMxutfMnBuu/Pu1MG8vejB3It+/y+3BJ+HxdKhoPU2lgd+tE1Dm6RNCC6Xy+XqW0NhAK56juW/ydb+UP2HR/j8NsX5HZury5VT874DOFGvwo2wznzPFONMuMdcxzlsXM9gmxrbIS2EUng8S6RpaZ1uhZEwFq7BCOPYzOmj3IVdbZ+EFc7qEuc/CJXQ5koAdxS4R5kAndcG2jkvjU1psPcednlpPs/hMu/wgfubKO7GjJWhTlDBr0C81k7ajDmotuAFOX0KS7O2b8Q99d/Ah+9WgiJBkyHuVfj+x1abhI3xbn84S/9L/Bfj+NvTwk3qDWfz/6q6sN+XcY5dNNd9/fPaU3wD9koR9vvm3P2g99oe4D9nz1YRtsdZ24nZqxEr12XkQ1grl8vl+qv6At+tEzg=
   </data>
  </layer>
 </map>
