@@ -208,9 +208,9 @@ exports.Grassy.prototype = {
       "tileheight":16,
       "tilesets":[{
         "firstgid":1,
-        "image":"tiles-1.png",
-        "imageheight":16,
-        "imagewidth":256,
+        "image":"grassy_terrain_tiles.png",
+        "imageheight":160,
+        "imagewidth":640,
         "margin":0,
         "name":"tiles-1",
         "properties":{},
@@ -234,7 +234,6 @@ exports.Grassy.prototype = {
         tiledMap[i+mapWidth*j] = 0;
       }
     }
-    tiledMap = map;
     for (var i = 1; i < mapWidth-1; i++) {
       for (var j = 1; j < mapHeight-1; j++) {
         if (map[i+mapWidth*j] !== 0) {
@@ -282,7 +281,7 @@ exports.Grassy.prototype = {
               //x 1 x
               //0 1 1
               //x 1 x
-            tiledMap[i+mapWidth*j] = 4;
+            tiledMap[i+mapWidth*j] = 3;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -298,7 +297,7 @@ exports.Grassy.prototype = {
               //x 1 x
               //1 1 0
               //x 1 x
-            tiledMap[i+mapWidth*j] = 5;
+            tiledMap[i+mapWidth*j] = 4;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -447,7 +446,13 @@ exports.Grassy.prototype = {
         }
       }
     }
-    this.map = tiledMap;
+    for (var i = 0; i < mapWidth; i++) {
+      for (var j = 0; j < mapHeight; j++) {
+        if (tiledMap[i+mapWidth*j] !== 0) {
+          this.map[i+mapWidth*j] = tiledMap[i+mapWidth*j];
+        }
+      }
+    }
   }
 };
 

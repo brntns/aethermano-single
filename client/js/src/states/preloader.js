@@ -15,7 +15,7 @@ Preloader.prototype = {
     // misc
     this.world = new gameWorld.World();
     this.world.create();
-    this.game.load.image('tiles-1','assets/tiles-1.png');
+    this.game.load.image('tiles-1','assets/grassy_terrain_tiles.png');
     this.game.load.image('overlay', 'assets/overlay.png');
     this.game.load.image('huts', 'assets/huts.png');
     this.game.load.image('item', 'assets/item.png');
