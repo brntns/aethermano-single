@@ -38,7 +38,7 @@ var mapBase = {
     this.tileset = this.game.add.tilemap(level.id);
     this.tileset.addTilesetImage('tiles-1');
     this.tileset.setCollisionByExclusion([
-      0
+      0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
     ]);
     //set collisionLayer
     this.collisionLayer = this.tileset.createLayer('Tile Layer 1');

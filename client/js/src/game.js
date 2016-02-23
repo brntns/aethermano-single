@@ -45,7 +45,7 @@ function Game() {
 
 var gameBase = {
 	create: function create() {
-		this.game.stage.backgroundColor = '#333333';
+		this.game.stage.backgroundColor = '#003399';
 		// enable frames manipulation & tracking
 		this.game.time.advancedTiming = true;
 		// enable physics
@@ -82,10 +82,10 @@ var gameBase = {
     this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
 
     console.log(this.camera);
-    this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
-    this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
-    this.lightSprite.fixedToCamera = true;
-    this.lights.add(this.lightSprite);
+    // this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
+    // this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+    // this.lightSprite.fixedToCamera = true;
+    // this.lights.add(this.lightSprite);
 	},
 	update: function update() {
 		// Menu
@@ -146,8 +146,8 @@ var gameBase = {
 		// }
 		// Collision
 		if (this.player !== null) {
-			this.updateShadowTexture();
-			this.lightSprite.bringToTop();
+			// this.updateShadowTexture();
+			// this.lightSprite.bringToTop();
 			//console.log(this.player.status);
 			// make player collide
 			this.game.physics.arcade.collide(this.player.sprite, this.map.collisionLayer);
