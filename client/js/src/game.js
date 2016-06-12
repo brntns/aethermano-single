@@ -45,13 +45,13 @@ function Game() {
 
 var gameBase = {
 	create: function create() {
-		this.game.stage.backgroundColor = '#003399';
+		this.game.stage.backgroundColor = '#132255';
 		// enable frames manipulation & tracking
 		this.game.time.advancedTiming = true;
 		// enable physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.arcade.OVERLAP_BIAS = 10;
-    this.game.physics.arcade.TILE_BIAS = 100;
+    this.game.physics.arcade.TILE_BIAS = 10;
 		this.monsterGroup = this.game.add.group();
 		this.boundsGroup = this.game.add.group();
 		this.menuGroup = this.game.add.group();

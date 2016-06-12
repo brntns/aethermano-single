@@ -141,7 +141,7 @@ exports.Grassy.prototype = {
         Width = (Hills[i+1] - X);
       }
       Height = Math.floor(Width/this.Random(4, 8));
-      this.makeHill(x + X, 250, Width, Height, mapWidth, mapHeight);
+      this.makeHill(x + X, y, Width, Height, mapWidth, mapHeight);
     }
     console.log(Hills);
   },
@@ -155,22 +155,96 @@ exports.Grassy.prototype = {
     var X = [];
     var L = 0;
     var R = 0;
-    Length[0] = this.Random(1, Math.floor(width/10));
+    Length[0] = this.Random(1, Math.floor(width/20) - 10);
     X[0] = this.Random(height, width - Length[0] - height);
     //this.makeTerrain(X[0] + x, y - height, Length[0], 1, mapWidth, mapHeight, 1);
     for (var i = 1; i < height; i++) {    
       L = this.Random(2 * height - 2 * i, X[i - 1] - 1);
-      R = this.Random(X[i - 1] + Length[i - 1], width - 2 * height + 2 * i);
-      console.log(y + ' ' + height);
+      R = this.Random(X[i - 1] + Length[i - 1] + 1, width - 2 * height + 2 * i - 1);
+      //console.log(y + ' ' + height);
       Length[i] = R - L;
       X[i] = L;
       this.makeTerrain(X[i] + x, y - height + i, Length[i], 1, mapWidth, mapHeight, 1);
-      console.log('step ' + X[i] + ' ' + Length[i]);
+      //console.log('step ' + X[i] + ' ' + Length[i]);
     }
-    console.log('Hill made ' + x + ' ' + y + ' ' + width + ' ' + height);
+    //console.log('Hill made ' + x + ' ' + y + ' ' + width + ' ' + height);
   },
-  outcroppings: function outcroppings() {
-
+  outcroppings: function outcroppings(x, y, width, height, mapWidth, mapHeight) {
+    var Rocks = [];
+    Rocks = this.randomSpacing(width, 180, 70, 20, 20);
+    for (var i = 0; i < Rocks.length; i++) {
+      this.boulders(x + Rocks[i], y, mapWidth, mapHeight);
+    }
+  },
+  boulders: function boulders(x, y, mapWidth, mapHeight) {
+    var Rock = [];
+    var Pebble = [];
+    var rockWidth = 0;
+    var rockHeight = 0;
+    Rock = this.randomSpacing(48, 8, 2, 1, 1);
+    for (var i = 0; i < Rock.length; i++) {
+      rockWidth = this.Random(3,7);
+      rockHeight = this.Random(2,12 - rockWidth);
+      this.boulder(x + Rock[i], y, rockWidth, rockHeight, mapWidth, mapHeight);
+    }
+    Pebble = this.randomSpacing(48, 8, 2, 1, 1);
+    for (var i = 0; i < Pebble.length; i++) {
+      rockWidth = this.Random(1,2);
+      rockHeight = this.Random(1,rockWidth);
+      this.boulder(x + Pebble[i], y, rockWidth, rockHeight, mapWidth, mapHeight);
+    }
+  },
+  boulder: function boulder(x, y, width, height, mapWidth, mapHeight) {
+    var rockObject = {};
+    var Ground = 0;
+    for (var i = 0; i < width; i++) {
+      var test = 0;
+      for (var j = 0; j < mapHeight; j++) {
+        if (this.map[x + i + j * mapWidth] !== 0) {
+          if (Ground < j) {
+            Ground = j;
+            //console.log('BOOM!!!!!');
+          }
+          //console.log(j + ' ' + Ground);
+          test = j;
+          break;
+        }
+      }
+      console.log(test);
+    }
+    rockObject = this.makeFeature(x, Ground - height, width, height, 0, 0, 0, 0, 0, 2, 0);
+    this.mapFeatures.push(rockObject);
+    this.drawBoulder(x, Ground - height, width, height, mapWidth, mapHeight);
+    console.log('Boulder at: ' + x + ' ' + Ground);
+  },
+  pebbles: function pebbles(x, y, mapWidth, mapHeight) {
+    //
+  },
+  drawBoulder: function drawBoulder(x, y, width, height, mapWidth, mapHeight) {
+    for (var i = 0; i < width; i++) {
+      for (var j = 0; j < height; j++) {
+        if (this.map[x + i + mapWidth * (y + j)] === 0) {
+          var R = this.Random(0,3);
+          if (width === 1) {
+            this.map[x + i + mapWidth * (y + j)] = 29 + R * 40;
+          } else {
+            if (i === 0 && j === 0) {
+              this.map[x + i + mapWidth * (y + j)] = 34 + R * 40;
+            } else if (i === width - 1 && j === 0) {
+              this.map[x + i + mapWidth * (y + j)] = 35 + R * 40;
+            } else if (j === 0) {
+              this.map[x + i + mapWidth * (y + j)] = 31 + R * 40;
+            } else if (i === 0) {
+              this.map[x + i + mapWidth * (y + j)] = 30 + R * 40;
+            } else if (i === width - 1) {
+              this.map[x + i + mapWidth * (y + j)] = 32 + R * 40;
+            } else {
+              this.map[x + i + mapWidth * (y + j)] = 29 + R * 40;
+            }
+          }
+        }
+      }
+    }
   },
   pits: function pits() {
 
@@ -182,9 +256,10 @@ exports.Grassy.prototype = {
       this.map[i] = 0;
     }
     console.log('DONESIES CLEARING');
-    this.makeHorizon(0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
-    this.makeTerrain(0, 250, mapWidth, 50, mapWidth, mapHeight, 1);
+    this.makeHorizon(0, 250, mapWidth, mapHeight, mapWidth, mapHeight);
+    this.makeTerrain(0, 250, mapWidth, mapHeight - 250, mapWidth, mapHeight, 1);
     this.writeTiles(mapWidth, mapHeight);
+    this.outcroppings(0, 250, mapWidth, mapHeight, mapWidth, mapHeight);
     this.setMap(mapWidth, mapHeight,this.maps.length + 1,'level');
   },
   setMap: function setMap(mapWidth, mapHeight, id, type){

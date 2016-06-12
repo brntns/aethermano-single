@@ -36,9 +36,9 @@ exports.World.prototype = {
 			exits: []
 		};
 		//level
-		grassy.generate(width,height,type);
+		mines.generate(width,height,type);
 		// push and clear
-		mapWrap.map.push(grassy.mapData);
+		mapWrap.map.push(mines.mapData);
 		// mapWrap.monsters = mines.monsters;
   //   if(type === 'level'){
   //     var doorX = mines.rooms[id].x;
