@@ -67,7 +67,7 @@ exports.Mines.prototype = {
       return rndMin;
     }
   },
-  randomTerrain: function randomTerrain(n, x, y, width, height, mapWidth, mapHeight, color) {
+  randomTerrain: function randomizeTerrain(n, x, y, width, height, mapWidth, mapHeight, color) {
     var N = Math.floor((mapHeight*mapWidth)/n);
     var X = 0;
     var Y = 0;
@@ -115,6 +115,10 @@ exports.Mines.prototype = {
     return true;
   },
   mainShafts: function mainShafts(x, y, width, height) {
+    var spacingMax = 250;
+    var spacingMin = 100;
+    var bufferMin = 50;
+    var bufferMax = 50;
     var X = 0;
     var Y = y;
     var Width = 12;
@@ -122,7 +126,7 @@ exports.Mines.prototype = {
     var boundLeft = 0;
     var boundRight = 0;
     var shaft = {};
-    var shaftStarts = this.randomSpacing(width - Width, 200, 100, 50, 50);
+    var shaftStarts = this.randomSpacing(width - Width, spacingMax, spacingMin, bufferMin, bufferMax);
     for (var i = 0; i < shaftStarts.length; i++) {
       X = shaftStarts[i];
       Height = this.Random(Math.floor(height/1.5),height-10);
@@ -134,6 +138,10 @@ exports.Mines.prototype = {
     }
   },
   connectShafts: function connectShafts(x, y, width, height, mapWidth, mapHeight) {
+    var spacingMax = 100;
+    var spacingMin = 50;
+    var bufferMin = 15;
+    var bufferMax = 15;
     var X = 0;
     var Y = 0;
     var Width = 0;
@@ -143,7 +151,7 @@ exports.Mines.prototype = {
       for (var i = 0; i < this.shafts.length-1; i++) {
         var boundary1 = Math.max(this.shafts[i].y,this.shafts[i+1].y,10);
         var boundary2 = Math.min(this.shafts[i].y + this.shafts[i].height - 10, this.shafts[i+1].y + this.shafts[i+1].height - 10);
-        var connectorStarts = this.randomSpacing(boundary2-boundary1 - Height, 100, 50, 15, 15);
+        var connectorStarts = this.randomSpacing(boundary2-boundary1 - Height, spacingMax, spacingMin, bufferMin, bufferMax);
         for (var j = 0; j < connectorStarts.length; j++) {
           X = this.shafts[i].x + this.shafts[i].width;
           Y = connectorStarts[j];
@@ -156,6 +164,10 @@ exports.Mines.prototype = {
     }
   },
   makeConnectorRooms: function makeConnectorRooms(x, y, width, height, mapWidth, mapHeight) {
+    var spacingMax = 75;
+    var spacingMin = 50;
+    var bufferMin = 5;
+    var bufferMax = 5;
     var X = 0;
     var Y = 0;
     var Width = 0;
@@ -163,7 +175,7 @@ exports.Mines.prototype = {
     var room = {};
     if (this.connectors.length > 0) {
       for (var i = 0; i < this.connectors.length; i++) {
-        var connectorRoomStarts = this.randomSpacing(this.connectors[i].width, 75, 50, 5, 5);
+        var connectorRoomStarts = this.randomSpacing(this.connectors[i].width, spacingMax, spacingMin, bufferMin, bufferMax);
         for (var j = 0; j < connectorRoomStarts.length; j++) {
           X = this.connectors[i].x + connectorRoomStarts[j];
           Width = this.Random(12,35);
@@ -182,6 +194,10 @@ exports.Mines.prototype = {
     }
   },
   branchFeature: function branchFeature(array, x, y, width, height, mapWidth, mapHeight) {
+    var spacingMax = 10;
+    var spacingMin = 5;
+    var bufferMin = 3;
+    var bufferMax = 3;
     var n = 0;
     var X = 0;
     var Y = 0;
@@ -189,16 +205,20 @@ exports.Mines.prototype = {
     var Height = 7;
     var branch = {};
     var room = {};
+    var sizeXMin = 18;
+    var sizeXMax = 32;
+    var sizeYMin = 12;
     var sizeX = 0;
     var sizeY = 0;
+    var offsetMax = 3;
     if (array.length > 1) {
       for (var i = 0; i < array.length; i++) {
-        var branchStarts = this.randomSpacing(array[i].height-Height, 10, 5, 3, 3);
+        var branchStarts = this.randomSpacing(array[i].height-Height, spacingMax, spacingMin, bufferMin, bufferMax);
         for (var j = 0; j < branchStarts.length; j++) {
           branch = this.makeBranch(array[i], branchStarts[j]+array[i].y, X, Y, Width, Height, 0);
-          sizeX = this.Random(18,32);
-          sizeY = this.Random(12,sizeX+2);
-          var offset = this.Random(0,3);
+          sizeX = this.Random(sizeXMin,sizeXMax);
+          sizeY = this.Random(sizeYMin,sizeX+2);
+          var offset = this.Random(0,offsetMax);
           room = this.makeRoom(branch, sizeX, sizeY, offset, 0);
           var testBranch = this.makeFeature(branch.x-1, branch.y-2, branch.width-2, branch.height + 4, 0, 0, 0, 0, 0, branch.type, branch.subtype);
           var testRoom = this.makeRoom(testBranch, sizeX + 6, sizeY + 6, offset, 0);
@@ -212,12 +232,12 @@ exports.Mines.prototype = {
             this.mapFeatures.push(room);
           }
         }
-        var branchStarts = this.randomSpacing(array[i].height - Height, 10, 5, 3, 3);
+        var branchStarts = this.randomSpacing(array[i].height - Height, spacingMax, spacingMin, bufferMin, bufferMax);
         for (var j = 0; j < branchStarts.length; j++) {
           branch = this.makeBranch(array[i], branchStarts[j]+array[i].y, X, Y, Width, Height, 1);
-          sizeX = this.Random(14,30);
-          sizeY = this.Random(12,sizeX+2);
-          var offset = this.Random(0,3);
+          sizeX = this.Random(sizeXMin,sizeXMax);
+          sizeY = this.Random(sizeYMin,sizeX+2);
+          var offset = this.Random(0,offsetMax);
           room = this.makeRoom(branch, sizeX, sizeY, offset, 1);
           var testBranch = this.makeFeature(branch.x+1, branch.y-2, branch.width-2, branch.height + 4, 0, 0, 0, 0, 0, branch.type, branch.subtype);
           var testRoom = this.makeRoom(testBranch, sizeX + 6, sizeY + 6, offset, 1);
@@ -376,15 +396,13 @@ exports.Mines.prototype = {
     this.mainShafts(x, y+3, width, height-3);
     this.connectShafts(x, y+3, width, height-3, mapWidth, mapHeight);
     this.makeConnectorRooms(x, y+3, width, height-3, mapWidth, mapHeight);
-    //console.log(this.connectorRooms);
     this.branchFeature(this.shafts, x, y+3, width, height-3, mapWidth, mapHeight);
     this.branchFeature(this.connectorRooms, x, y+3, width, height-3, mapWidth, mapHeight);
     this.branchFeature(this.rooms, x, y+3, width, height-3, mapWidth, mapHeight);
-    //console.log(this.mapFeatures);
     this.writeToMap(this.mapFeatures, mapWidth, mapHeight);
-    this.randomTerrain(100, x, y, width, height, mapWidth, mapHeight, 14)
+    this.randomizeTerrain(100, x, y, width, height, mapWidth, mapHeight, 14)
     this.writeTiles(mapWidth,mapHeight);
-    this.randomTerrain(500, x, y, width, height, mapWidth, mapHeight, 14)
+    this.randomizeTerrain(500, x, y, width, height, mapWidth, mapHeight, 14)
     var N = this.countRooms(this.mapFeatures);
     this.spawnMonsters(this.rooms);
     // console.log(N);
@@ -401,7 +419,7 @@ exports.Mines.prototype = {
 			this.makeTerrain(mapWidth / 2 - 12, mapHeight / 2 - 8, mapWidth / 2, mapHeight / 2, mapWidth, mapHeight, 0);
 		} else {
       this.Bedrock(0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
-	    this.setMap(mapWidth, mapHeight,this.maps.length + 1,'level');
+	    this.setMap(mapWidth, mapHeight, this.maps.length + 1, 'level');
 		}
   },
   setMap: function setMap(mapWidth, mapHeight, id, type){

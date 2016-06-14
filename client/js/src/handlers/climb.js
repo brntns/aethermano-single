@@ -27,7 +27,7 @@ var climb = {
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
         var mapIndex = layer.layer.data[coordsY+j-2][coordsX+i+1].index;
-        if (mapIndex !== -1 && (mapIndex < 69 || mapIndex > 119)) {
+        if (mapIndex !== -1) {
           if (this.checkOverlap(this.player.climbboxUR, layer.layer.data[coordsY+j-2][coordsX+i+1])) {
             this.player.climbBoxUR = true;
             break loop;
@@ -44,7 +44,7 @@ var climb = {
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
         var mapIndex = layer.layer.data[coordsY+j-2][coordsX+i-2].index;
-        if (mapIndex !== -1 && (mapIndex < 69 || mapIndex > 119)) {
+        if (mapIndex !== -1) {
           if (this.checkOverlap(this.player.climbboxUL, layer.layer.data[coordsY+j-2][coordsX+i-2])) {
             this.player.climbBoxUL = true;
             break loop;
@@ -60,7 +60,7 @@ var climb = {
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
         var mapIndex = layer.layer.data[coordsY+j+1][coordsX+i-2].index;
-        if (mapIndex !== -1 && (mapIndex < 69 || mapIndex > 119)) {
+        if (mapIndex !== -1) {
           if (this.checkOverlap(this.player.climbboxDL, layer.layer.data[coordsY+j+1][coordsX+i-2])) {
             this.player.climbBoxDL = true;
             break loop;
@@ -76,7 +76,7 @@ var climb = {
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
         var mapIndex = layer.layer.data[coordsY+j+1][coordsX+i+1].index;
-        if (mapIndex !== -1 && (mapIndex < 69 || mapIndex > 119)) {
+        if (mapIndex !== -1) {
           if (this.checkOverlap(this.player.climbboxDR, layer.layer.data[coordsY+j+1][coordsX+i+1])) {
             this.player.climbBoxDR = true;
             break loop;

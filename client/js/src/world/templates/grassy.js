@@ -15,17 +15,17 @@ exports.Grassy = function(){
   this.maps = [];
   this.branches = [];
   this.rooms = [];
-	this.locationSprites = [];
+  this.locationSprites = [];
   this.locations = [];
   this.mapFeatures = [];
   this.horizon = [];
 };
 exports.Grassy.prototype = {
   clear: function clear() {
-		this.mapData = {};
+    this.mapData = {};
     this.mapSize = 0;
     this.map = [];
-		this.rooms = [];
+    this.rooms = [];
     this.locationSprites = [];
     this.locations = [];
     this.mapFeatures = [];
@@ -134,7 +134,7 @@ exports.Grassy.prototype = {
       X = Hills[i];
       if (i == 0) {
         Width = X + this.Random(0, 2*X);
-        //X = X - Width;
+        // X = X - Width;
       } else if (i == Hills.length - 1) {
         Width = width - X + this.Random(0, 2*(width - X));
       } else {
@@ -143,7 +143,7 @@ exports.Grassy.prototype = {
       Height = Math.floor(Width/this.Random(4, 8));
       this.makeHill(x + X, y, Width, Height, mapWidth, mapHeight);
     }
-    console.log(Hills);
+    // console.log(Hills);
   },
   makeHill: function makeHill(x, y, width, height, mapWidth, mapHeight) {
     var hill = {};
@@ -156,7 +156,7 @@ exports.Grassy.prototype = {
     var L = 0;
     var R = 0;
     Length[0] = this.Random(1, Math.floor(width/20) - 10);
-    X[0] = this.Random(height, width - Length[0] - height);
+    X[0] = this.Random(Math.floor(height*1.3), width - Length[0] - Math.floor(height*1.3));
     //this.makeTerrain(X[0] + x, y - height, Length[0], 1, mapWidth, mapHeight, 1);
     for (var i = 1; i < height; i++) {    
       L = this.Random(2 * height - 2 * i, X[i - 1] - 1);
@@ -188,11 +188,11 @@ exports.Grassy.prototype = {
       this.boulder(x + Rock[i], y, rockWidth, rockHeight, mapWidth, mapHeight);
     }
     Pebble = this.randomSpacing(48, 8, 2, 1, 1);
-    for (var i = 0; i < Pebble.length; i++) {
-      rockWidth = this.Random(1,2);
-      rockHeight = this.Random(1,rockWidth);
-      this.boulder(x + Pebble[i], y, rockWidth, rockHeight, mapWidth, mapHeight);
-    }
+    // for (var i = 0; i < Pebble.length; i++) {
+    //   rockWidth = this.Random(1,2);
+    //   rockHeight = this.Random(1,rockWidth);
+    //   this.boulder(x + Pebble[i], y, rockWidth, rockHeight, mapWidth, mapHeight);
+    // }
   },
   boulder: function boulder(x, y, width, height, mapWidth, mapHeight) {
     var rockObject = {};
@@ -221,12 +221,16 @@ exports.Grassy.prototype = {
     //
   },
   drawBoulder: function drawBoulder(x, y, width, height, mapWidth, mapHeight) {
-    for (var i = 0; i < width; i++) {
-      for (var j = 0; j < height; j++) {
+    for (var j = 0; j < height + width - 1; j++) {
+      for (var i = 0; i < width; i++) {
         if (this.map[x + i + mapWidth * (y + j)] === 0) {
           var R = this.Random(0,3);
           if (width === 1) {
-            this.map[x + i + mapWidth * (y + j)] = 29 + R * 40;
+            if (j === 0) {
+              this.map[x + i + mapWidth * (y + j)] = 154 + R * 40;
+            } else {
+              this.map[x + i + mapWidth * (y + j)] = 156 + R * 40;
+            }
           } else {
             if (i === 0 && j === 0) {
               this.map[x + i + mapWidth * (y + j)] = 34 + R * 40;
@@ -242,6 +246,12 @@ exports.Grassy.prototype = {
               this.map[x + i + mapWidth * (y + j)] = 29 + R * 40;
             }
           }
+        } else if (this.map[x + i + mapWidth * (y + j)] === 26) {
+          var R = this.Random(0,3);
+          this.map[x + i + mapWidth * (y + j)] = 152 + R * 40;
+        } else if (this.map[x + i + mapWidth * (y + j)] === 27) {
+          var R = this.Random(0,3);
+          this.map[x + i + mapWidth * (y + j)] = 151 + R * 40;
         }
       }
     }
@@ -260,7 +270,7 @@ exports.Grassy.prototype = {
     this.makeTerrain(0, 250, mapWidth, mapHeight - 250, mapWidth, mapHeight, 1);
     this.writeTiles(mapWidth, mapHeight);
     this.outcroppings(0, 250, mapWidth, mapHeight, mapWidth, mapHeight);
-    this.setMap(mapWidth, mapHeight,this.maps.length + 1,'level');
+    this.setMap(mapWidth, mapHeight, this.maps.length + 1, 'level');
   },
   setMap: function setMap(mapWidth, mapHeight, id, type){
     this.mapData = {
