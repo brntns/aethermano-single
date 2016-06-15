@@ -6,7 +6,8 @@ __                         _   _
 /_/_/_/         \__,_|\___|\__|_| |_|\___|_|  |_| |_| |_|\__,_|_| |_|\___/  
 
 
-a fan favoriteplay at your own home.
+a fan favorite.
+play at your own home.
 enjoy singleplayer.
 
 
