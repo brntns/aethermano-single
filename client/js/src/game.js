@@ -45,7 +45,7 @@ function Game() {
 
 var gameBase = {
 	create: function create() {
-		this.game.stage.backgroundColor = '#132255';
+		this.game.stage.backgroundColor = '#264626';
 		// enable frames manipulation & tracking
 		this.game.time.advancedTiming = true;
 		// enable physics

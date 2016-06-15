@@ -33,11 +33,11 @@ var mapBase = {
       this.collisionLayer.destroy();
     	//console.log('destroyed');
     }
-    this.tilemap = this.game.load.tilemap(level.id, null, level, Phaser.Tilemap.TILED_JSON );
+    this.tilemap = this.game.load.tilemap(level.id, null, level, Phaser.Tilemap.TILED_JSON);
     this.tileset = this.game.add.tilemap(level.id);
     this.tileset.addTilesetImage('tiles-1');
     this.tileset.setCollisionByExclusion([
-      0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
+      0
     ]);
     //set collisionLayer
     this.collisionLayer = this.tileset.createLayer('Tile Layer 1');
