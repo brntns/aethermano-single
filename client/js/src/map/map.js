@@ -1,7 +1,7 @@
 'use strict';
 
-function Map(game, player, myGame) {
-	this.myGame = myGame;
+function Map(game, player) {
+	//this.myGame = myGame;
 	this.player = player;
 	this.game = game;
   this.maps = null;
@@ -28,7 +28,6 @@ var mapBase = {
     this.currentMap = level;
 		this.player.sprite.x = 400;
 		this.player.sprite.y = 200;
-		//console.log(level);
     // this.currentMap = level;
     if (this.collisionLayer !== null) {
       this.collisionLayer.destroy();

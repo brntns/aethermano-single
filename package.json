@@ -6,13 +6,13 @@
   "version": "0.0.0",
   "main": "client/index.js",
   "dependencies": {
-    "lodash": "~2.4.1",
-    "pngjs": "^2.2.0",
+    "lodash": "*",
+    "pngjs": "*",
     "socket.io": "*"
   },
   "devDependencies": {
     "gulp": "*",
-    "gulp-clean": "^0.3.1",
+    "gulp-clean": "*",
     "gulp-concat": "*",
     "gulp-connect": "*",
     "gulp-download": "*",
@@ -21,7 +21,7 @@
     "gulp-minify-html": "*",
     "gulp-processhtml": "*",
     "gulp-rename": "*",
-    "gulp-run": "^1.6.8",
+    "gulp-run": "*",
     "gulp-uglify": "*",
     "gulp-util": "*",
     "gulp-watch": "*",

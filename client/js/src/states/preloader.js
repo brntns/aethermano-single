@@ -1,5 +1,5 @@
 var gameWorld = require('../world/world.js')
- PNG = require('pngjs').PNG;
+//var PNG = require('pngjs');
 this.world = null;
 var colormap = require('../colormap');
 var png = null;
@@ -75,7 +75,7 @@ Preloader.prototype = {
     this.game.load.spritesheet('beholder_laser', 'assets/monster/beholder_laser.png', 32, 16);
 
 
-    this.writeImg();
+    //this.writeImg();
   },
   writeImg : function writeImg() {
     var world = this.world;
@@ -129,6 +129,7 @@ Preloader.prototype = {
       this.loadImage();
       this.game.state.start('splash');
     }
+    this.game.state.start('splash');
   }
 };
 

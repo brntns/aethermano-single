@@ -131,6 +131,7 @@ var gameBase = {
       this.game.time.events.add(1000, function(){this.zooming = false;}, this);
       this.zoomTo(1,200);
     }
+
 		// Vul animation
 		// if (this.player.vuln && !this.player.dieing) {
 		//   this.player.sprite.tint = 0xFAA1A1;
@@ -148,9 +149,17 @@ var gameBase = {
 		if (this.player !== null) {
 			// this.updateShadowTexture();
 			// this.lightSprite.bringToTop();
-			//console.log(this.player.status);
+      // delete Tile
+      var tilex = this.map.collisionLayer.getTileX(this.player.sprite.x)*16;
+      var tiley = this.map.collisionLayer.getTileY(this.player.sprite.y)*16;
+			this.map.tileset.putTile(
+        -1,
+        this.map.collisionLayer.getTileX(tilex+16),
+        this.map.collisionLayer.getTileY(tiley)
+      );
+
 			// make player collide
-			this.game.physics.arcade.collide(this.player.sprite, this.map.collisionLayer);
+      this.game.physics.arcade.collide(this.player.sprite, this.map.collisionLayer);
 			//this.game.physics.arcade.collide(this.player.sprite,this.boundsGroup);
 			// this.game.physics.arcade.collide(this.player.sprite, this.items.item, this.itemCollisionHandler, null, this);
 			this.game.physics.arcade.collide(this.monsterGroup, this.map.collisionLayer, this.enemyHandler, null, this);
@@ -210,7 +219,9 @@ var gameBase = {
 			if (this.player.teleporting !== 0) {
 				this.teleportPlayer();
 			}
-		}
+
+    }
+
 		// if (this.client !== null && this.player !== null) {
 		//   // Check aggro INFO: needs relocation
 		//   for (var i = 0; i < this.monsterGroup.children.length; i++) {
