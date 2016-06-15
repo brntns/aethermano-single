@@ -224,34 +224,34 @@ exports.Grassy.prototype = {
     for (var j = 0; j < height + width - 1; j++) {
       for (var i = 0; i < width; i++) {
         if (this.map[x + i + mapWidth * (y + j)] === 0) {
-          var R = this.Random(0,3);
+          var R = this.Random(1,4);
           if (width === 1) {
             if (j === 0) {
-              this.map[x + i + mapWidth * (y + j)] = 154 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 328 + R;
             } else {
-              this.map[x + i + mapWidth * (y + j)] = 156 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 344 + R;
             }
           } else {
             if (i === 0 && j === 0) {
-              this.map[x + i + mapWidth * (y + j)] = 34 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 248 + R;
             } else if (i === width - 1 && j === 0) {
-              this.map[x + i + mapWidth * (y + j)] = 35 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 256 + R;
             } else if (j === 0) {
-              this.map[x + i + mapWidth * (y + j)] = 31 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 224 + R;
             } else if (i === 0) {
-              this.map[x + i + mapWidth * (y + j)] = 30 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 216 + R;
             } else if (i === width - 1) {
-              this.map[x + i + mapWidth * (y + j)] = 32 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 232 + R;
             } else {
-              this.map[x + i + mapWidth * (y + j)] = 29 + R * 40;
+              this.map[x + i + mapWidth * (y + j)] = 208 + R;
             }
           }
-        } else if (this.map[x + i + mapWidth * (y + j)] === 26) {
-          var R = this.Random(0,3);
-          this.map[x + i + mapWidth * (y + j)] = 152 + R * 40;
-        } else if (this.map[x + i + mapWidth * (y + j)] === 27) {
-          var R = this.Random(0,3);
-          this.map[x + i + mapWidth * (y + j)] = 151 + R * 40;
+        } else if (this.map[x + i + mapWidth * (y + j)] === 57) {
+          var R = this.Random(1,4);
+          this.map[x + i + mapWidth * (y + j)] = 296 + R;
+        } else if (this.map[x + i + mapWidth * (y + j)] === 65) {
+          var R = this.Random(1,4);
+          this.map[x + i + mapWidth * (y + j)] = 304 + R;
         }
       }
     }
@@ -334,8 +334,8 @@ exports.Grassy.prototype = {
               //1 1 1
               //1 1 1
               //1 1 1
-              R = this.Random(0,5);
-              tiledMap[i+mapWidth*j] = 1 + R*40;
+              R = this.Random(1,6);
+              tiledMap[i+mapWidth*j] = 8 + R;
             } else if (map[(i-1)+mapWidth*(j+1)] === 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
@@ -343,8 +343,8 @@ exports.Grassy.prototype = {
               //1 1 1
               //1 1 1
               //0 1 1
-              R = this.Random(0,5);
-              tiledMap[i+mapWidth*j] = 1 + R*40;
+              R = this.Random(1,6);
+              tiledMap[i+mapWidth*j] = 8 + R;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] === 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
@@ -352,8 +352,8 @@ exports.Grassy.prototype = {
               //0 1 1
               //1 1 1
               //1 1 1
-              R = this.Random(0,5);
-              tiledMap[i+mapWidth*j] = 1 + R*40;
+              R = this.Random(1,6);
+              tiledMap[i+mapWidth*j] = 8 + R;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] === 0
@@ -361,8 +361,8 @@ exports.Grassy.prototype = {
               //1 1 0
               //1 1 1
               //1 1 1
-              R = this.Random(0,5);
-              tiledMap[i+mapWidth*j] = 1 + R*40;
+              R = this.Random(1,6);
+              tiledMap[i+mapWidth*j] = 8 + R;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
@@ -370,8 +370,8 @@ exports.Grassy.prototype = {
               //1 1 1
               //1 1 1
               //1 1 0
-              R = this.Random(0,5);
-              tiledMap[i+mapWidth*j] = 1 + R*40;
+              R = this.Random(1,6);
+              tiledMap[i+mapWidth*j] = 8 + R;
             }
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] !== 0
@@ -380,8 +380,8 @@ exports.Grassy.prototype = {
             //x 1 x
             //0 1 1
             //x 1 x
-            R = this.Random(0,1);
-            tiledMap[i+mapWidth*j] = 3 + R*40;
+            R = this.Random(1,2);
+            tiledMap[i+mapWidth*j] = 40 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -389,8 +389,8 @@ exports.Grassy.prototype = {
             //x 1 x
             //1 1 1
             //x 0 x
-            R = this.Random(0,5);
-            tiledMap[i+mapWidth*j] = 1 + R*40;
+            R = this.Random(1,6);
+            tiledMap[i+mapWidth*j] = 8 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] === 0
@@ -398,8 +398,8 @@ exports.Grassy.prototype = {
             //x 1 x
             //1 1 0
             //x 1 x
-            R = this.Random(0,1);
-            tiledMap[i+mapWidth*j] = 4 + R*40;
+            R = this.Random(1,2);
+            tiledMap[i+mapWidth*j] = 48 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -407,8 +407,8 @@ exports.Grassy.prototype = {
             //x 0 x
             //1 1 1
             //x 1 x
-            R = this.Random(0,5);
-            tiledMap[i+mapWidth*j] = 1 + R*40;
+            R = this.Random(1,6);
+            tiledMap[i+mapWidth*j] = 8 + R;
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -416,7 +416,8 @@ exports.Grassy.prototype = {
             //x 0 x
             //0 1 1
             //x 1 x
-            tiledMap[i+mapWidth*j] = 11;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 128 + R;
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -424,7 +425,8 @@ exports.Grassy.prototype = {
               //x 1 x
               //0 1 1
               //x 0 x
-            tiledMap[i+mapWidth*j] = 14;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 144 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] === 0
@@ -432,7 +434,8 @@ exports.Grassy.prototype = {
               //x 1 x
               //1 1 0
               //x 0 x
-            tiledMap[i+mapWidth*j] = 13;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 152 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] === 0
@@ -440,7 +443,8 @@ exports.Grassy.prototype = {
               //x 0 x
               //1 1 0
               //x 1 x
-            tiledMap[i+mapWidth*j] = 12;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 136 + R;
           }
         } else {
           //no collision tiles here
@@ -455,7 +459,8 @@ exports.Grassy.prototype = {
               //1 1 1
               //1 0 1
               //0 1 1
-              tiledMap[i+mapWidth*j] = 20;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 168 + R;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] === 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
@@ -463,7 +468,8 @@ exports.Grassy.prototype = {
               //0 1 1
               //1 0 1
               //1 1 1
-              tiledMap[i+mapWidth*j] = 20;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 168 + R;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] === 0
@@ -471,7 +477,8 @@ exports.Grassy.prototype = {
               //1 1 0
               //1 0 1
               //1 1 1
-              tiledMap[i+mapWidth*j] = 20;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 168 + R;
             } else if (map[(i-1)+mapWidth*(j+1)] !== 0
             && map[(i-1)+mapWidth*(j-1)] !== 0
             && map[(i+1)+mapWidth*(j-1)] !== 0
@@ -479,7 +486,8 @@ exports.Grassy.prototype = {
               //1 1 1
               //1 0 1
               //1 1 0
-              tiledMap[i+mapWidth*j] = 20;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 168 + R;
             }
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] !== 0
@@ -488,7 +496,8 @@ exports.Grassy.prototype = {
               //x 1 x
               //0 0 1
               //x 1 x
-            tiledMap[i+mapWidth*j] = 21;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 184 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -496,7 +505,8 @@ exports.Grassy.prototype = {
               //x 1 x
               //1 0 1
               //x 0 x
-            tiledMap[i+mapWidth*j] = 22;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 200 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] === 0
@@ -504,7 +514,8 @@ exports.Grassy.prototype = {
               //x 1 x
               //1 0 0
               //x 1 x
-            tiledMap[i+mapWidth*j] = 23;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 176 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -512,7 +523,8 @@ exports.Grassy.prototype = {
               //x 0 x
               //1 0 1
               //x 1 x
-            tiledMap[i+mapWidth*j] = 24;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 208 + R;
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -520,7 +532,8 @@ exports.Grassy.prototype = {
               //x 0 x
               //0 0 1
               //x 1 x
-            tiledMap[i+mapWidth*j] = 27;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 64 + R;
           } else if (map[(i-1)+mapWidth*j] === 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] !== 0
@@ -528,7 +541,8 @@ exports.Grassy.prototype = {
               //x 1 x
               //0 0 1
               //x 0 x
-            tiledMap[i+mapWidth*j] = 28;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 72 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] !== 0
           && map[(i+1)+mapWidth*j] === 0
@@ -536,7 +550,8 @@ exports.Grassy.prototype = {
               //x 1 x
               //1 0 0
               //x 0 x
-            tiledMap[i+mapWidth*j] = 25;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 80 + R;
           } else if (map[(i-1)+mapWidth*j] !== 0
           && map[i+mapWidth*(j-1)] === 0
           && map[(i+1)+mapWidth*j] === 0
@@ -544,7 +559,8 @@ exports.Grassy.prototype = {
               //x 0 x
               //1 0 0
               //x 1 x
-            tiledMap[i+mapWidth*j] = 26;
+            R = this.Random(1,1);
+            tiledMap[i+mapWidth*j] = 56 + R;
           }
         }
       }
