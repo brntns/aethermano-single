@@ -67,7 +67,7 @@ exports.Mines.prototype = {
       return rndMin;
     }
   },
-  randomTerrain: function randomizeTerrain(n, x, y, width, height, mapWidth, mapHeight, color) {
+  randomizeTerrain: function randomizeTerrain(n, x, y, width, height, mapWidth, mapHeight, color) {
     var N = Math.floor((mapHeight*mapWidth)/n);
     var X = 0;
     var Y = 0;
@@ -404,7 +404,7 @@ exports.Mines.prototype = {
     this.writeTiles(mapWidth,mapHeight);
     this.randomizeTerrain(500, x, y, width, height, mapWidth, mapHeight, 14)
     var N = this.countRooms(this.mapFeatures);
-    this.spawnMonsters(this.rooms);
+    // this.spawnMonsters(this.rooms);
     // console.log(N);
   },
   generate: function generate(mapWidth, mapHeight, type) {

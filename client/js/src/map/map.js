@@ -18,13 +18,13 @@ function Map(game, player) {
 }
 
 var mapBase = {
-	create: function (data) {
-    console.log(data);
+	create: function create(data) {
+    // console.log(data);
     this.maps = data;
     this.setCurrentLevel(this.maps[0].map[0],'map',this.maps[0].map[0].type);
 	},
   setCurrentLevel: function setCurrentLevel(level,name,type) {
-		console.log(level);
+		// console.log(level);
     this.currentMap = level;
 		this.player.sprite.x = 400;
 		this.player.sprite.y = 200;

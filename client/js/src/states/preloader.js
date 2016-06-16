@@ -1,8 +1,8 @@
-var gameWorld = require('../world/world.js')
-//var PNG = require('pngjs');
-this.world = null;
-var colormap = require('../colormap');
-var png = null;
+// var gameWorld = require('../world/world.js')
+// var PNG = require('pngjs').PNG;
+// this.world = null;
+// var colormap = require('../colormap');
+// var png = null;
 var ready = false;
 'use strict';
 
@@ -13,10 +13,10 @@ Preloader.prototype = {
 
   preload: function () {
     // misc
-    this.world = new gameWorld.World();
-    this.world.create();
-    //this.game.load.image('tiles-1','assets/tiles-1.png');
-    this.game.load.image('tiles-1','assets/grassy_terrain3.png');
+    // this.world = new gameWorld.World();
+    // this.world.create();
+    this.game.load.image('tiles-1','assets/tiles-1.png');
+    //this.game.load.image('tiles-1','assets/grassy_terrain3.png');
     this.game.load.image('overlay', 'assets/overlay.png');
     this.game.load.image('huts', 'assets/huts.png');
     this.game.load.image('item', 'assets/item.png');
@@ -75,7 +75,7 @@ Preloader.prototype = {
     this.game.load.spritesheet('beholder_laser', 'assets/monster/beholder_laser.png', 32, 16);
 
 
-    //this.writeImg();
+    // this.writeImg();
   },
   writeImg : function writeImg() {
     var world = this.world;
@@ -126,7 +126,7 @@ Preloader.prototype = {
   },
   update: function () {
     if (ready) {
-      this.loadImage();
+      // this.loadImage();
       this.game.state.start('splash');
     }
     this.game.state.start('splash');

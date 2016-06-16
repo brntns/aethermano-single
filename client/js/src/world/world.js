@@ -3,9 +3,11 @@ var _ = require('lodash');
 var debug = true;
 var gameMines = require('./templates/mines.js');
 var gameGrassy = require('./templates/grassy.js');
+var gameTestmap = require('./templates/testmap.js');
 var Items = require('./templates/decorator/items.js');
 var mines = new gameMines.Mines();
 var grassy = new gameGrassy.Grassy();
+var testmap = new gameTestmap.Testmap();
 var items = new Items.Items();
 
 
@@ -15,6 +17,7 @@ exports.World = function(){
 };
 exports.World.prototype = {
 	create: function () {
+    console.log('WORLD CREATED! IT BETTER NOT BE CREATED TWICE!');
 		this.build(0,'level',1000,300);
 		// this.build(1,'room',50,30);
 		// this.build(2,'room',50,30);
@@ -25,6 +28,7 @@ exports.World.prototype = {
 		// console.log(this.maps);
 	},
 	build: function build(id,type,width,height){
+    var LEVEL = mines;
 		var mapWrap = {
 			id:id,
       type:type,
@@ -36,9 +40,9 @@ exports.World.prototype = {
 			exits: []
 		};
 		//level
-		grassy.generate(width,height,type);
+		LEVEL.generate(width,height,type);
 		// push and clear
-		mapWrap.map.push(grassy.mapData);
+		mapWrap.map.push(LEVEL.mapData);
 		// mapWrap.monsters = mines.monsters;
   //   if(type === 'level'){
   //     var doorX = mines.rooms[id].x;
@@ -51,7 +55,7 @@ exports.World.prototype = {
 
 		// mapWrap.locations.push(items.itemData);
 		this.maps.push(mapWrap);
-		grassy.clear();
+		LEVEL.clear();
 		//items.clear();
 	}
 };

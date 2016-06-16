@@ -7,8 +7,13 @@ var climbchecks = require('./handlers/climb');
 var teleport = require('./handlers/teleport');
 var attackhandler = require('./handlers/attackhandler');
 var playerchecks = require('./handlers/playerchecks');
-var gameWorld = require('./world/world.js')
+var gameWorld = require('./world/world')
 var Menu = require('./client/menu/menu');
+var PNG = require('pngjs').PNG;
+var colormap = require('./colormap');
+var png = null;
+var ready = false;
+var loadingImage = false;
 
 function Game() {
 	this.player = null;
@@ -41,6 +46,7 @@ function Game() {
 	this.bounds = null;
 	this.Scale = 1;
   this.zooming = false;
+  this.overviewActive = false;
 }
 
 var gameBase = {
@@ -69,11 +75,11 @@ var gameBase = {
     // this.menu = new Menu(this);
     // this.menu.create();
 
-    for (var i = 0; i < this.world.maps[0].monsters.length; i++) {
-      var monster = new Enemy(this.world.maps[0].monsters[i].id, this);
-      monster.create(this.world.maps[0].monsters[i]);
-      this.monsters.push(monster);
-    }
+    // for (var i = 0; i < this.world.maps[0].monsters.length; i++) {
+    //   var monster = new Enemy(this.world.maps[0].monsters[i].id, this);
+    //   monster.create(this.world.maps[0].monsters[i]);
+    //   this.monsters.push(monster);
+    // }
     this.locationGroup  = this.game.add.group();
 		this.items = new Items(this);
     this.items.create(this.world.maps[0].locations);
@@ -81,12 +87,61 @@ var gameBase = {
     this.lights = this.game.add.group();
     this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
 
-    console.log(this.camera);
+    this.writeImg();
+    // console.log(this.camera);
     // this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
     // this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
     // this.lightSprite.fixedToCamera = true;
     // this.lights.add(this.lightSprite);
 	},
+	writeImg : function writeImg() {
+    var img = new PNG({
+      filterType: 4,
+      width: this.world.maps[0].map[0].layers[0].width,
+      height: this.world.maps[0].map[0].layers[0].height
+    });
+    for (var y = 0; y < img.height; y++) {
+      for (var x = 0; x < img.width; x++) {
+        var idx = (img.width * y + x) << 2;
+        // invert color
+        var colourN = 0;
+        if (this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y] < 69){
+          colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y];
+          img.data[idx] = colormap[colourN].r;
+          img.data[idx+1] = colormap[colourN].g;
+          img.data[idx+2] = colormap[colourN].b;
+          // and reduce opacity
+          img.data[idx+3] = 255;
+        } else {
+          colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y] - 34;
+          img.data[idx] = colormap[colourN].r;
+          img.data[idx+1] = colormap[colourN].g;
+          img.data[idx+2] = colormap[colourN].b;
+          // and reduce opacity
+          img.data[idx+3] = 255;
+        }
+      }
+    }
+    // console.log(img);
+    img.pack();
+    var chunks = [];
+    img.on('data', function(chunk) {
+      chunks.push(chunk);
+    });
+    img.on('end', function() {
+      var result = Buffer.concat(chunks);
+      png = result.toString('base64');
+      ready = true;
+    });
+    // console.log(png);
+  },
+  loadImage: function loadImage() {
+    png = 'data:image/jpeg;base64,'+png;
+    var data = new Image();
+    data.src = png;
+    // console.log(png);
+    this.cache.addImage('mapImage', png, data);
+  },
 	update: function update() {
 		// Menu
 			// if(this.map.collisionLayer){
@@ -131,6 +186,22 @@ var gameBase = {
       this.game.time.events.add(1000, function(){this.zooming = false;}, this);
       this.zoomTo(1,200);
     }
+    if (this.player.letterL.isDown && !loadingImage) {
+    	loadingImage = true;
+    	this.loadImage();
+    }
+    if (this.player.letterM.isDown && !this.overviewActive && ready) {
+    	console.log('OVERVIEW ENGAGE!');
+    	var overview = this.add.sprite(0, 0, 'mapImage');
+  		this.overviewActive = true;
+  	}
+  	if (this.overviewActive) {
+  		overview.bringToTop
+  	}
+    // } else if (!this.player.letterM.isDown && this.overviewActive) {
+    // 	overview.kill();
+  		// this.overviewActive = false;
+    // }
 
 		// Vul animation
 		// if (this.player.vuln && !this.player.dieing) {
@@ -150,13 +221,13 @@ var gameBase = {
 			// this.updateShadowTexture();
 			// this.lightSprite.bringToTop();
       // delete Tile
-      var tilex = this.map.collisionLayer.getTileX(this.player.sprite.x)*16;
-      var tiley = this.map.collisionLayer.getTileY(this.player.sprite.y)*16;
-			this.map.tileset.putTile(
-        -1,
-        this.map.collisionLayer.getTileX(tilex+16),
-        this.map.collisionLayer.getTileY(tiley)
-      );
+   //    var tilex = this.map.collisionLayer.getTileX(this.player.sprite.x)*16;
+   //    var tiley = this.map.collisionLayer.getTileY(this.player.sprite.y)*16;
+			// this.map.tileset.putTile(
+   //      -1,
+   //      this.map.collisionLayer.getTileX(tilex+16),
+   //      this.map.collisionLayer.getTileY(tiley)
+   //    );
 
 			// make player collide
       this.game.physics.arcade.collide(this.player.sprite, this.map.collisionLayer);
