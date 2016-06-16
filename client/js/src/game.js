@@ -7,17 +7,10 @@ var climbchecks = require('./handlers/climb');
 var teleport = require('./handlers/teleport');
 var attackhandler = require('./handlers/attackhandler');
 var playerchecks = require('./handlers/playerchecks');
-var gameWorld = require('./world/world')
+var gameWorld = require('./world/world');
 var Menu = require('./client/menu/menu');
-var PNG = require('pngjs').PNG;
-var colormap = require('./colormap');
-var png = null;
-var ready = false;
+var Overview = require('./overview/overview');
 var loadingImage = false;
-var overviewImage = null;
-var overview = null;
-var marker = null;
-
 function Game() {
 	this.player = null;
 	this.map = null;
@@ -35,6 +28,7 @@ function Game() {
 	this.chatGroup = null;
 	this.survivorGroup = null;
 	this.survivors = [];
+  this.overviewGroup = null;
 	this.monsterStun = 1000;
 	this.playerStun = 200;
 	this.invulTime = 750;
@@ -64,7 +58,7 @@ var gameBase = {
 		this.monsterGroup = this.game.add.group();
 		this.boundsGroup = this.game.add.group();
 		this.menuGroup = this.game.add.group();
-
+    this.overviewGroup = this.game.add.group();
     this.ladders = this.game.add.group();
 		// creating game components
 		this.player = new Player(this.game, this.map);
@@ -76,7 +70,7 @@ var gameBase = {
 		// this.map.currentMap = this.map.maps[0];
 
     // this.menu = new Menu(this);
-    // this.menu.create();
+    //this.menu.create();
 
     // for (var i = 0; i < this.world.maps[0].monsters.length; i++) {
     //   var monster = new Enemy(this.world.maps[0].monsters[i].id, this);
@@ -89,56 +83,17 @@ var gameBase = {
 
     this.lights = this.game.add.group();
     this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
-
-    this.writeImg();
+    this.overview = new Overview(this.game,this.world);
+    this.overview.create();
+    this.overview.writeImg();
+    //writeImg();
     // console.log(this.camera);
     // this.lightSprite = this.game.add.image(0, 0, this.shadowTexture);
     // this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
     // this.lightSprite.fixedToCamera = true;
     // this.lights.add(this.lightSprite);
+
 	},
-	writeImg : function writeImg() {
-    var img = new PNG({
-      filterType: 4,
-      width: this.world.maps[0].map[0].layers[0].width,
-      height: this.world.maps[0].map[0].layers[0].height
-    });
-    for (var y = 0; y < img.height; y++) {
-      for (var x = 0; x < img.width; x++) {
-        var idx = (img.width * y + x) << 2;
-        // invert color
-        var colourN = 0;
-        colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y];
-        img.data[idx] = colormap[colourN].r;
-        img.data[idx+1] = colormap[colourN].g;
-        img.data[idx+2] = colormap[colourN].b;
-        // and reduce opacity
-        img.data[idx+3] = 255;
-      }
-    }
-    // console.log(img);
-    img.pack();
-    var chunks = [];
-    img.on('data', function(chunk) {
-      chunks.push(chunk);
-    });
-    img.on('end', function() {
-      var result = Buffer.concat(chunks);
-      png = result.toString('base64');
-      ready = true;
-      console.log('image ready!');
-    });
-    // console.log(png);
-  },
-  loadImage: function loadImage() {
-    png = 'data:image/jpeg;base64,'+png;
-    var data = new Image();
-    data.src = png;
-    console.log('LOADING IMAGE...');
-    overviewImage = this.game.cache.addImage('mapImage', png, data);
-    console.log('LOADED IMAGE!');
-    console.log(overviewImage);
-  },
 	update: function update() {
 		// Menu
 			// if(this.map.collisionLayer){
@@ -185,9 +140,10 @@ var gameBase = {
     }
     if (this.player.letterL.isDown && !loadingImage) {
     	loadingImage = true;
-    	this.loadImage();
+    	this.overview.loadImage();
+
     }
-    if (this.player.letterM.isDown && !this.overviewActive && ready) {
+    if (this.player.letterM.isDown && !this.overviewActive) {
     	overview = this.game.add.sprite(140, 200, 'mapImage');
     	marker = this.game.add.sprite(136+Math.floor(this.player.sprite.x/16), 196+Math.floor(this.player.sprite.y/16), 'map_marker');
   		this.overviewActive = true;
