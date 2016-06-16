@@ -27,6 +27,7 @@ Preloader.prototype = {
     this.game.load.image('explorerbtn', 'assets/menu/explorer.png');
     this.game.load.image('conjurerbtn', 'assets/menu/conjurer.png');
     this.game.load.image('logo', 'assets/title.png');
+    this.game.load.image('map_marker', 'assets/map_marker.png');
     // player projectiles
     this.game.load.spritesheet('arrow', 'assets/player/arrow.png', 32, 32);
     this.game.load.spritesheet('fireball', 'assets/player/fireball.png', 66, 66);

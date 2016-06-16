@@ -16,6 +16,7 @@ var ready = false;
 var loadingImage = false;
 var overviewImage = null;
 var overview = null;
+var marker = null;
 
 function Game() {
 	this.player = null;
@@ -196,13 +197,18 @@ var gameBase = {
     	this.loadImage();
     }
     if (this.player.letterM.isDown && !this.overviewActive && ready) {
-    	overview = this.game.add.sprite(0, 0, 'mapImage');
+    	overview = this.game.add.sprite(140, 200, 'mapImage');
+    	marker = this.game.add.sprite(136+Math.floor(this.player.sprite.x/16), 196+Math.floor(this.player.sprite.y/16), 'map_marker');
   		this.overviewActive = true;
    		overview.bringToTop = true;
-
+   		marker.bringToTop = true;
+   		overview.fixedToCamera = true;
+   		marker.fixedToCamera = true;
+   		overview.alpha = 1;
   	}
   	if (!this.player.letterM.isDown && this.overviewActive) {
   		overview.destroy();
+  		marker.destroy();
   		this.overviewActive = false;
   	}
     // } else if (!this.player.letterM.isDown && this.overviewActive) {
