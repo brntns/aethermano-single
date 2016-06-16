@@ -139,11 +139,6 @@ var gameBase = {
       this.game.time.events.add(1000, function(){this.zooming = false;}, this);
       this.zoomTo(1,200);
     }
-    if (this.player.letterL.isDown && !loadingImage) {
-    	loadingImage = true;
-    	this.overview.loadImage();
-
-    }
     if (this.player.letterM.isDown && !this.overviewActive) {
     	overview = this.game.add.sprite(140, 200, 'mapImage');
     	marker = this.game.add.sprite(136+Math.floor(this.player.sprite.x/16), 196+Math.floor(this.player.sprite.y/16), 'map_marker');
@@ -221,7 +216,8 @@ var gameBase = {
 			  }
 			}
 			this.player.sprite.bringToTop();
-			// this.player.climbboxUR.bringToTop();
+      this.game.world.bringToTop(this.overviewGroup);
+      // this.player.climbboxUR.bringToTop();
 			// this.player.climbboxUL.bringToTop();
 			// this.player.climbboxDL.bringToTop();
 			// this.player.climbboxDR.bringToTop();
