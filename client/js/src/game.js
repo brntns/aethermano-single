@@ -143,12 +143,10 @@ var gameBase = {
     	overview = this.game.add.sprite(140, 200, 'mapImage');
     	marker = this.game.add.sprite(136+Math.floor(this.player.sprite.x/16), 196+Math.floor(this.player.sprite.y/16), 'map_marker');
   		this.overviewActive = true;
-      this.overviewGroup.add(overview,marker);
-   		overview.bringToTop = true;
-   		marker.bringToTop = true;
+      this.overviewGroup.add(overview);      
+      this.overviewGroup.add(marker);
    		overview.fixedToCamera = true;
    		marker.fixedToCamera = true;
-   		overview.alpha = 1;
   	}
   	if (!this.player.letterM.isDown && this.overviewActive) {
   		overview.destroy();
