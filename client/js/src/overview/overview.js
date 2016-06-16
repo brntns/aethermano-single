@@ -3,6 +3,7 @@ var PNG = require('pngjs').PNG;
 var colormap = require('./colormap');
 var png = null;
 var ready = false;
+var init = true;
 var loadingImage = false;
 var overviewImage = null;
 //var overview = null;
@@ -10,7 +11,7 @@ var marker = null;
 
 
 function Overview(game,world) {
- this.game = game;
+    this.game = game;
     this.world = world;
 }
 
@@ -49,7 +50,12 @@ var overviewBase = {
       ready = true;
       console.log('image ready!');
     });
-    // console.log(png);
+  },
+  checkImage:function checkImage(){
+    if(ready && init){
+    this.loadImage();
+    init = false;
+    }
   },
   loadImage: function loadImage() {
     png = 'data:image/jpeg;base64,'+png;
