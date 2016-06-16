@@ -14,6 +14,8 @@ var colormap = require('./colormap');
 var png = null;
 var ready = false;
 var loadingImage = false;
+var overviewImage = null;
+var overview = null;
 
 function Game() {
 	this.player = null;
@@ -132,6 +134,7 @@ var gameBase = {
       var result = Buffer.concat(chunks);
       png = result.toString('base64');
       ready = true;
+      console.log('image ready!');
     });
     // console.log(png);
   },
@@ -139,8 +142,10 @@ var gameBase = {
     png = 'data:image/jpeg;base64,'+png;
     var data = new Image();
     data.src = png;
-    // console.log(png);
-    this.cache.addImage('mapImage', png, data);
+    console.log('LOADING IMAGE...');
+    overviewImage = this.game.cache.addImage('mapImage', png, data);
+    console.log('LOADED IMAGE!');
+    console.log(overviewImage);
   },
 	update: function update() {
 		// Menu
@@ -191,12 +196,14 @@ var gameBase = {
     	this.loadImage();
     }
     if (this.player.letterM.isDown && !this.overviewActive && ready) {
-    	console.log('OVERVIEW ENGAGE!');
-    	var overview = this.add.sprite(0, 0, 'mapImage');
+    	overview = this.game.add.sprite(0, 0, 'mapImage');
   		this.overviewActive = true;
+   		overview.bringToTop = true;
+
   	}
-  	if (this.overviewActive) {
-  		overview.bringToTop
+  	if (!this.player.letterM.isDown && this.overviewActive) {
+  		overview.destroy();
+  		this.overviewActive = false;
   	}
     // } else if (!this.player.letterM.isDown && this.overviewActive) {
     // 	overview.kill();

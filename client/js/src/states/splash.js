@@ -23,7 +23,6 @@ Splash.prototype = {
   createTween() {
       var logoTween = this.add.tween(this.logo).to({alpha: 1}, 1000,
           Phaser.Easing.Cubic.In, true, 0, 0, true);
-
       logoTween.onComplete.add(startGame,this);
       function startGame(){
         this.game.state.start('game');
