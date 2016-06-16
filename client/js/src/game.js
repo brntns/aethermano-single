@@ -54,7 +54,7 @@ function Game() {
 
 var gameBase = {
 	create: function create() {
-		this.game.stage.backgroundColor = '#264626';
+		this.game.stage.backgroundColor = '#161616';
 		// enable frames manipulation & tracking
 		this.game.time.advancedTiming = true;
 		// enable physics
@@ -108,21 +108,12 @@ var gameBase = {
         var idx = (img.width * y + x) << 2;
         // invert color
         var colourN = 0;
-        if (this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y] < 69){
-          colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y];
-          img.data[idx] = colormap[colourN].r;
-          img.data[idx+1] = colormap[colourN].g;
-          img.data[idx+2] = colormap[colourN].b;
-          // and reduce opacity
-          img.data[idx+3] = 255;
-        } else {
-          colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y] - 34;
-          img.data[idx] = colormap[colourN].r;
-          img.data[idx+1] = colormap[colourN].g;
-          img.data[idx+2] = colormap[colourN].b;
-          // and reduce opacity
-          img.data[idx+3] = 255;
-        }
+        colourN = this.world.maps[0].map[0].layers[0].data[x+this.world.maps[0].map[0].layers[0].width*y];
+        img.data[idx] = colormap[colourN].r;
+        img.data[idx+1] = colormap[colourN].g;
+        img.data[idx+2] = colormap[colourN].b;
+        // and reduce opacity
+        img.data[idx+3] = 255;
       }
     }
     // console.log(img);
