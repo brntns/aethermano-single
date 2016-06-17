@@ -18,7 +18,7 @@ exports.Mines = function(){
   this.connectorRooms = [];
   this.branches = [];
   this.rooms = [];
-	this.locationSprites = [];
+  this.locationSprites = [];
   this.locations = [];
   this.mapFeatures = [];
 };
@@ -27,10 +27,10 @@ exports.Mines.prototype = {
     //console.log('Creating New Map...');
     //console.log('Done Creating Map!' + JSON.stringify(this.maps.length));
   clear: function clear() {
-		this.mapData = {};
+    this.mapData = {};
     this.mapSize = 0;
     this.map = [];
-		this.rooms = [];
+    this.rooms = [];
     this.locationSprites = [];
     this.locations = [];
     this.mapFeatures = [];
@@ -52,13 +52,13 @@ exports.Mines.prototype = {
     };
     return feature;
   },
-	makeTerrain: function makeTerrain(x, y, width, height, mapWidth, mapHeight, color) {
-		for (var z = 0; z < width; z++){
-			for (var i = 0; i < height; i++){
-				this.map[x+y*mapWidth+z+i*mapWidth] = color;
-			}
-		}
-	},
+  makeTerrain: function makeTerrain(x, y, width, height, mapWidth, mapHeight, color) {
+    for (var z = 0; z < width; z++){
+      for (var i = 0; i < height; i++){
+        this.map[x+y*mapWidth+z+i*mapWidth] = color;
+      }
+    }
+  },
   Random: function Random(rndMin, rndMax) {
     if (rndMin < rndMax) {
       var x = Math.floor(Math.random()*(rndMax-rndMin+1)+rndMin);
@@ -413,50 +413,50 @@ exports.Mines.prototype = {
     for (var i = 0; i < this.mapSize; i++) {
       this.map[i] = 0;
     }
-		if (type === 'room') {
-			this.setMap(mapWidth, mapHeight, this.maps.length + 1, 'room');
-			this.makeTerrain(0, 0, mapWidth, mapHeight, mapWidth, mapHeight, 13);
-			this.makeTerrain(mapWidth / 2 - 12, mapHeight / 2 - 8, mapWidth / 2, mapHeight / 2, mapWidth, mapHeight, 0);
-		} else {
+    if (type === 'room') {
+      this.setMap(mapWidth, mapHeight, this.maps.length + 1, 'room');
+      this.makeTerrain(0, 0, mapWidth, mapHeight, mapWidth, mapHeight, 13);
+      this.makeTerrain(mapWidth / 2 - 12, mapHeight / 2 - 8, mapWidth / 2, mapHeight / 2, mapWidth, mapHeight, 0);
+    } else {
       this.Bedrock(0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
-	    this.setMap(mapWidth, mapHeight, this.maps.length + 1, 'level');
-		}
+      this.setMap(mapWidth, mapHeight, this.maps.length + 1, 'level');
+    }
   },
   setMap: function setMap(mapWidth, mapHeight, id, type){
-		this.mapData = {
-			"id": id,
-			"type":type,
-			"height":16,
-			"layers":[{
-				"data":[],
-				"height":mapHeight,
-				"name":"Tile Layer 1",
-				"opacity":1,
-				"type":"tilelayer",
-				"visible":true,
-				"width":mapWidth,
-				"x":2,
-				"y":2
-			}],
-			"orientation":"orthogonal",
-			"properties":{},
-			"tileheight":16,
-			"tilesets":[{
-				"firstgid":1,
-				"image":"tiles-1.png",
-				"imageheight":16,
-				"imagewidth":256,
-				"margin":0,
-				"name":"tiles-1",
-				"properties":{},
-				"spacing":0,
-				"tileheight":16,
-				"tilewidth":16
-			}],
-			"tilewidth":16,
-			"version":1,
-			"width":16
-		};
+    this.mapData = {
+      "id": id,
+      "type":type,
+      "height":16,
+      "layers":[{
+        "data":[],
+        "height":mapHeight,
+        "name":"Tile Layer 1",
+        "opacity":1,
+        "type":"tilelayer",
+        "visible":true,
+        "width":mapWidth,
+        "x":2,
+        "y":2
+      }],
+      "orientation":"orthogonal",
+      "properties":{},
+      "tileheight":16,
+      "tilesets":[{
+        "firstgid":1,
+        "image":"tiles-1.png",
+        "imageheight":16,
+        "imagewidth":256,
+        "margin":0,
+        "name":"tiles-1",
+        "properties":{},
+        "spacing":0,
+        "tileheight":16,
+        "tilewidth":16
+      }],
+      "tilewidth":16,
+      "version":1,
+      "width":16
+    };
     this.mapData.layers[0].data = this.map;
     //this.maps.push(this.mapData);
     this.locationSprites.push(this.locations);
