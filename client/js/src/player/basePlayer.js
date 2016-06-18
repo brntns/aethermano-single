@@ -97,6 +97,8 @@ var basePlayer = {
     this.sprite.animations.add('jester_fart_right', [40,41,42,43,44], 12, false);
     this.sprite.animations.add('jester_fart_left', [50,51,52,53,54], 12, false);
 
+    this.sprite.animations.add('builder_dig_right', [40,41,42], 12, false);
+    this.sprite.animations.add('builder_dig_left', [50,51,52], 12, false);
     // adding gravity and Player Velocity
     this.game.physics.arcade.gravity.y = this.gravity;
     this.sprite.body.maxVelocity.y = 500 * this.scale;

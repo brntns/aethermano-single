@@ -8,6 +8,8 @@ var Witchdoc = require('./classes/witchdoc');
 var Knight = require('./classes/knight');
 var Conjurer = require('./classes/conjurer');
 var Jester = require('./classes/jester');
+var Builder = require('./classes/builder');
+
 
 var movement = {
   update: function update() {
@@ -85,6 +87,9 @@ var movement = {
     if (this.class9.isDown && this.playerClass !== 9) {
       return 9;
     }
+    if (this.letterB.isDown && this.playerClass !== 10) {
+      return 10;
+    }
     return -1;
   },
   setPlayerClass: function setPlayerClass (classId) {
@@ -130,6 +135,10 @@ var movement = {
       case 9:
         _.extend(this, Conjurer);
         this.class = 1009;
+      break;
+      case 10:
+        _.extend(this, Builder);
+        this.class = 1010;
       break;
     }
     this.classInit();
