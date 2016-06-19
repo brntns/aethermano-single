@@ -404,6 +404,8 @@ exports.Mines.prototype = {
       var S = 1;
       var T = 1;
       var D = 0;
+      var FlagL = false;
+      var FlagR = false;
       for (var j = 0; j < Depth; j++) {
         for (var k = 0; k < Length; k++) {
           if (j === 0 && Y > 1) {
@@ -419,7 +421,7 @@ exports.Mines.prototype = {
                     map[X+k+mapWidth*(Y-1+j)] = 33 + R;
                   }
                 } else if (k === Length-1) {
-                  if (DLength === 2 || (DX === 1 && DLength !== -2)) {
+                  if (DLength === 1) {
                     map[X+k+mapWidth*(Y-1+j)] = 49 + R;
                   } else {
                     map[X+k+mapWidth*(Y-1+j)] = 41 + R;
@@ -432,14 +434,14 @@ exports.Mines.prototype = {
           }
         }
         X += DX;
+        Length += DLength - DX;        
         if (j === S) {
           DX = 1 - this.Random(0,1)*2;
           D = this.Random(2,Length);
           S += D;
         }
-        Length += DLength;
         if (j === T) {
-          DLength = 2 - this.Random(0,2)*2;
+          DLength = 1 - this.Random(0,1)*2;
           D = this.Random(2,Length);
           T += D;
         }
@@ -460,8 +462,7 @@ exports.Mines.prototype = {
     this.writeTiles(mapWidth,mapHeight);
     this.randomizeTerrain(500, x, y, width, height, mapWidth, mapHeight, 14);
     this.caveIn(this.rooms, mapWidth, mapHeight);
-    this.caveIn(this.branches, mapWidth, mapHeight);
-    console.log('cave in complete!');
+    // this.caveIn(this.branches, mapWidth, mapHeight);
     var N = this.countRooms(this.mapFeatures);
     // this.spawnMonsters(this.rooms);
     // console.log(N);
