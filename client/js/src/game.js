@@ -133,11 +133,15 @@ var gameBase = {
 		  this.zooming = true;
 		  this.game.time.events.add(1000, function(){this.zooming = false;}, this);
       this.zoomTo(4,200);
+      this.game.physics.arcade.OVERLAP_BIAS = 100;
+      this.game.physics.arcade.TILE_BIAS = 100;
     }
     if (this.player.letterO.isDown && !this.zooming) {
       this.zooming = true;
       this.game.time.events.add(1000, function(){this.zooming = false;}, this);
       this.zoomTo(1,200);
+      this.game.physics.arcade.OVERLAP_BIAS = 10;
+      this.game.physics.arcade.TILE_BIAS = 10;
     }
     if (this.player.letterM.isDown && !this.overviewActive) {
     	overview = this.game.add.sprite(140, 200, 'mapImage');

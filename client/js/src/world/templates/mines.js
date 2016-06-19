@@ -390,6 +390,62 @@ exports.Mines.prototype = {
       this.addMonsters(array[i], n)
     }
   },
+  caveIn: function caveIn(array, mapWidth, mapHeight) {
+    var map = this.map;
+    var caveinindex = this.randomSpacing(array.length, 2, 1, 1, 1);
+    for (var i = 0; i < caveinindex.length; i++) {
+      var room = array[caveinindex[i]];
+      var Length = Math.min(this.Random(3,6),room.width);
+      var Depth = room.height + 1;
+      var X = room.x + this.Random(0,room.width-Length);
+      var Y = room.y;
+      var DX = -1;
+      var DLength = 2;
+      var S = 1;
+      var T = 1;
+      var D = 0;
+      for (var j = 0; j < Depth; j++) {
+        for (var k = 0; k < Length; k++) {
+          if (j === 0 && Y > 1) {
+            map[X+k+mapWidth*(Y-1)] = 57;
+          } else if (Y < mapHeight-1-j) {
+            if (X+k > 0 && X+k < mapWidth) {
+              var R = this.Random(0,3);
+              if (map[X+k+mapWidth*(Y-1+j)] === 0) {
+                if (k === 0) {
+                  if (DX === -1) {
+                    map[X+k+mapWidth*(Y-1+j)] = 25 + R;
+                  } else {
+                    map[X+k+mapWidth*(Y-1+j)] = 33 + R;
+                  }
+                } else if (k === Length-1) {
+                  if (DLength === 2 || (DX === 1 && DLength !== -2)) {
+                    map[X+k+mapWidth*(Y-1+j)] = 49 + R;
+                  } else {
+                    map[X+k+mapWidth*(Y-1+j)] = 41 + R;
+                  }
+                } else {
+                  map[X+k+mapWidth*(Y-1+j)] = 17 + R;
+                }
+              }
+            }
+          }
+        }
+        X += DX;
+        if (j === S) {
+          DX = 1 - this.Random(0,1)*2;
+          D = this.Random(2,Length);
+          S += D;
+        }
+        Length += DLength;
+        if (j === T) {
+          DLength = 2 - this.Random(0,2)*2;
+          D = this.Random(2,Length);
+          T += D;
+        }
+      }
+    }
+  },
   Bedrock: function Bedrock(x, y, width, height, mapWidth, mapHeight) {
     this.makeTerrain(x, y, width, height, mapWidth, mapHeight, 1);
     //this.makeTerrain(100, 25, 100, 50, mapWidth, mapHeight, 0);
@@ -400,9 +456,12 @@ exports.Mines.prototype = {
     this.branchFeature(this.connectorRooms, x, y+3, width, height-3, mapWidth, mapHeight);
     this.branchFeature(this.rooms, x, y+3, width, height-3, mapWidth, mapHeight);
     this.writeToMap(this.mapFeatures, mapWidth, mapHeight);
-    this.randomizeTerrain(100, x, y, width, height, mapWidth, mapHeight, 14)
+    this.randomizeTerrain(100, x, y, width, height, mapWidth, mapHeight, 14);
     this.writeTiles(mapWidth,mapHeight);
-    this.randomizeTerrain(500, x, y, width, height, mapWidth, mapHeight, 14)
+    this.randomizeTerrain(500, x, y, width, height, mapWidth, mapHeight, 14);
+    this.caveIn(this.rooms, mapWidth, mapHeight);
+    this.caveIn(this.branches, mapWidth, mapHeight);
+    console.log('cave in complete!');
     var N = this.countRooms(this.mapFeatures);
     // this.spawnMonsters(this.rooms);
     // console.log(N);
@@ -444,8 +503,8 @@ exports.Mines.prototype = {
       "tilesets":[{
         "firstgid":1,
         "image":"tiles-1.png",
-        "imageheight":16,
-        "imagewidth":256,
+        "imageheight":160,
+        "imagewidth":128,
         "margin":0,
         "name":"tiles-1",
         "properties":{},

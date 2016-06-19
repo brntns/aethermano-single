@@ -29,6 +29,9 @@ var Builder = {
       break;
     }
   },
+  build: function build () {
+    
+  },
   slashat: function slashat() {
     if (this.Facing === 1 || this.Facing === 2 || this.Facing === 3 || this.Facing === 8) {
       this.sprite.animations.play('builder_dig_right');
